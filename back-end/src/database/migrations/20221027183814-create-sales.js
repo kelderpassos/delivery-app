@@ -11,15 +11,14 @@ module.exports = {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
-        references: { model: "users", key: "id" },
+        type: Sequelize.STRING,
+        unique: true,
         onDelete: 'CASCADE'
       },
       seller_id: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
+        type: Sequelize.STRING,
         unique: true,
-        references: { model: "users", key: "id" },
         onDelete: 'CASCADE'
       },
       total_price: {
@@ -28,19 +27,19 @@ module.exports = {
       },
       delivery_address: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
+        type: Sequelize.STRING,
       },
       delivery_number: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
+        type: Sequelize.STRING,
       },
       sale_date: {
         allowNull: false,
-        type: Sequelize.DATETIME,
+        type: Sequelize.DATE,
       },
       status: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
+        type: Sequelize.STRING,
       },
     });
   },

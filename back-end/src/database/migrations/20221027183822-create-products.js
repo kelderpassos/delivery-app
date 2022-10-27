@@ -11,7 +11,7 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
+        type: Sequelize.STRING,
         unique: true,
       },
       price: {
@@ -20,7 +20,7 @@ module.exports = {
       },
       url_image: {
         allowNull: false,
-        type: Sequelize.VARCHAR,
+        type: Sequelize.STRING,
         defaultValue: "",
       },
     });
