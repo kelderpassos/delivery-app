@@ -10,7 +10,7 @@ const login = async ({ email, password }) => {
 
   const hashPassword = md5(password);
 
-  if (!result.password === hashPassword) throw new Error('Invalid password');
+  if (result.password !== hashPassword) throw new Error('Invalid password');
 
   return true;
 };
