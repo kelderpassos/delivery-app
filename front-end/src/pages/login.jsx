@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [input, setInput] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
+  const navigate = useNavigate();
 
   const validFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -17,10 +19,10 @@ export default function Login() {
   };
 
   const handleSubmit = (evt) => {
+    evt.preventDefault();
     const ERROR_STATUS = 404;
 
-    evt.preventDefault();
-    fetch('/login', {
+    fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +30,11 @@ export default function Login() {
       body: JSON.stringify(input),
     })
       .then((data) => {
-        if (data.status === ERROR_STATUS) setInvalidLogin(true);
+        if (data.status === ERROR_STATUS) {
+          setInvalidLogin(true);
+        } else {
+          navigate('/customer/products');
+        }
       });
   };
 
