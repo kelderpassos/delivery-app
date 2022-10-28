@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const models = require('../database/models');
+const jwt = require('../auth/JWT');
 
 const { User } = models;
 
@@ -12,7 +13,9 @@ const login = async ({ email, password }) => {
 
   if (result.password !== hashPassword) throw new Error('Invalid password');
 
-  return true;
+  const token = jwt.create({ email, hashPassword });
+
+  return token;
 };
 
 module.exports = { login };
