@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Login() {
-  const handleInput = () => {
+  const [input, setInput] = useState({ email: '', password: '' });
 
+  const validFields = () => {
+    const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    const validEmail = emailPattern.test(input.email);
+    const FIVE = 5;
+
+    return validEmail && input.password.length > FIVE;
+  };
+
+  const handleInput = ({ target }) => {
+    setInput({ ...input, [target.name]: target.value });
   };
 
   const handleLogin = () => {
@@ -36,6 +46,7 @@ export default function Login() {
             type="submit"
             name="login"
             data-testid="common_login__button-login"
+            disabled={ !validFields() }
           >
             Log in
           </button>
