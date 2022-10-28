@@ -18,7 +18,7 @@ const SalesModel = (sequelize, DataTypes) => {
       totalPrice: DataTypes.DECIMAL,
       deliveryAddress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
-      saleDate: DataTypes.DATETIME,
+      saleDate: DataTypes.DATE,
       status: DataTypes.STRING,
     },
     {
@@ -32,10 +32,11 @@ const SalesModel = (sequelize, DataTypes) => {
       foreignKey: "userId",
       as: "users",
       onDelete: "CASCADE",
-    }),
+    });
+    
     Sale.belongsTo(model.User, {
       foreignKey: "sellerId",
-      as: "users",
+      as: "seller",
       onDelete: "CASCADE",
     });
   };
