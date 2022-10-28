@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [input, setInput] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
+  const navigate = useNavigate();
 
   const validFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -14,6 +16,10 @@ export default function Login() {
 
   const handleInput = ({ target }) => {
     setInput({ ...input, [target.name]: target.value });
+  };
+
+  const redirectToRegister = () => {
+    navigate('/register');
   };
 
   const handleSubmit = (evt) => {
@@ -66,6 +72,7 @@ export default function Login() {
           <button
             type="submit"
             data-testid="common_login__button-register"
+            onClick={ redirectToRegister }
           >
             Subscribe
           </button>
