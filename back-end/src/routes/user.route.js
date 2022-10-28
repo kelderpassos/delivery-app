@@ -7,4 +7,7 @@ const userRoute = express.Router();
 userRoute.post('/login', rescue((req, res, _next) =>
   userController.login(req, res)));
 
+userRoute.post('/register', rescue((req, res, _next) =>
+  userController.customerRegister(req, res)));
+
 module.exports = userRoute;
