@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 export default function Login() {
   const [input, setInput] = useState({ email: '', password: '' });
@@ -18,17 +17,26 @@ export default function Login() {
   };
 
   const handleSubmit = (evt) => {
+    const ERROR_STATUS = 404;
+
     evt.preventDefault();
-    axios.post('/login', input).then((res) => {
-      if (res.data.errors) setInvalidLogin(true);
-    });
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(input),
+    })
+      .then((data) => {
+        if (data.status === ERROR_STATUS) setInvalidLogin(true);
+      });
   };
 
   return (
     <div>
       <section>
         <h4>Login</h4>
-        <form onChange={ handleSubmit }>
+        <form onSubmit={ handleSubmit }>
           <label htmlFor="email">
             E-mail
             <input
