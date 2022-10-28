@@ -24,7 +24,10 @@ export default function Register() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(input),
-    });
+    })
+      .then((result) => result.json)
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
   };
 
   return (
