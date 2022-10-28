@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function Login() {
   const [input, setInput] = useState({ email: '', password: '' });
+  const [invalidLogin, setInvalidLogin] = useState(false);
 
   const validFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -15,15 +17,18 @@ export default function Login() {
     setInput({ ...input, [target.name]: target.value });
   };
 
-  const handleLogin = () => {
-
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    axios.post('/login', input).then((res) => {
+      if (res.data.errors) setInvalidLogin(true);
+    });
   };
 
   return (
     <div>
       <section>
         <h4>Login</h4>
-        <form onChange={ handleLogin }>
+        <form onChange={ handleSubmit }>
           <label htmlFor="email">
             E-mail
             <input
@@ -56,6 +61,9 @@ export default function Login() {
           >
             Subscribe
           </button>
+          {invalidLogin && (
+            <p data-testid="common_login__element-invalid-email">Wrong credentials</p>
+          )}
         </form>
       </section>
     </div>
