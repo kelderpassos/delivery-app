@@ -16,11 +16,22 @@ export default function Register() {
     setInput({ ...input, [target.name]: target.value });
   };
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    fetch('http://localhost:3001/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(input),
+    });
+  };
+
   return (
     <div>
       <section>
         <h4>Register</h4>
-        <form>
+        <form onSubmit={ handleSubmit }>
           <label htmlFor="name">
             Name
             <input
