@@ -23,10 +23,10 @@ export default function Login() {
   };
 
   const handleSubmit = (evt) => {
+    evt.preventDefault();
     const ERROR_STATUS = 404;
 
-    evt.preventDefault();
-    fetch('/login', {
+    fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,11 @@ export default function Login() {
       body: JSON.stringify(input),
     })
       .then((data) => {
-        if (data.status === ERROR_STATUS) setInvalidLogin(true);
+        if (data.status === ERROR_STATUS) {
+          setInvalidLogin(true);
+        } else {
+          navigate('/customer/products');
+        }
       });
   };
 
