@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function ProductCards({ products }) {
   const [counter, setCounter] = useState(0);
@@ -57,3 +58,7 @@ export default function ProductCards({ products }) {
     </div>
   );
 }
+
+ProductCards.propTypes = {
+  products: PropTypes.arrayOf.isRequired,
+};
