@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [input, setInput] = useState({ name: '', email: '', password: '' });
+  const [invalidRegistered, setInvalidRegistered] = useState(false);
+
+  const navigate = useNavigate();
 
   const validateFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -17,6 +21,7 @@ export default function Register() {
   };
 
   const handleSubmit = (evt) => {
+    const ERROR_STATUS = 409;
     evt.preventDefault();
     fetch('http://localhost:3001/register', {
       method: 'POST',
@@ -25,9 +30,14 @@ export default function Register() {
       },
       body: JSON.stringify(input),
     })
-      .then((result) => result.json)
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        if (response.status === ERROR_STATUS) {
+          setInvalidRegistered(true);
+        } else {
+          navigate('/customer/products');
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -70,6 +80,11 @@ export default function Register() {
           >
             Register
           </button>
+          {invalidRegistered && (
+            <p data-testid="common_register__element-invalid_register">
+              Already registered
+            </p>
+          )}
         </form>
       </section>
     </div>

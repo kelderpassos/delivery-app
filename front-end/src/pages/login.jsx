@@ -39,7 +39,8 @@ export default function Login() {
         } else {
           navigate('/customer/products');
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
