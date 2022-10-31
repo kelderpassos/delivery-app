@@ -5,9 +5,8 @@ export default function NavBar() {
   const [user, setUser] = useState('');
 
   useEffect(() => () => {
-    const userData = localStorage.getItem('userData');
+    const userData = localStorage.getItem('user');
     const username = JSON.parse(userData);
-    console.log(username.name);
     setUser(username.name);
   });
 
@@ -34,7 +33,8 @@ export default function NavBar() {
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-link-logout"
-          to="/logout"
+          to="/login"
+          onClick={ () => localStorage.removeItem('user') }
         >
           Sair
         </NavLink>

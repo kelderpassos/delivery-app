@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ProductCards({ id, name, urlImage, price }) {
   const [counter, setCounter] = useState(0);
 
-  /*  const handleAddCart = () => {
-    setItemAmount(itemAmount + 1);
-    const totalPrice = price * itemAmount;
-    const itemObj = { id, name, totalPrice, itemAmount };
-    localStorage.setItem(name, JSON.stringify(itemObj));
-  }; */
+  useEffect(() => {
+    const addedProduct = { name, price, counter };
+    const teste = { product: addedProduct}
+    localStorage.setItem('cart', JSON.stringify(addedProduct));
+    console.log(teste);
+  }, [counter]);
 
   const handleButtons = ({ target }) => {
-    if (target.name === 'add') setCounter((prevState) => prevState + 1);
+    if (target.name === 'add') {
+      setCounter((prevState) => prevState + 1);
+    }
     if (target.name === 'sub') {
       setCounter((prevState) => (counter === 0 ? prevState : prevState - 1));
     }
@@ -68,7 +70,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
 }
 
 ProductCards.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
