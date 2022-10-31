@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 export default function Register() {
   const [input, setInput] = useState({ name: '', email: '', password: '' });
@@ -27,16 +27,11 @@ export default function Register() {
     axios.post('http://localhost:3001/register', input)
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
-        if (!data.token) {
-          setInvalidRegistered(true);
-        } else {
-          const stringfyData = JSON.stringify(data);
-          localStorage.setItem('userData', stringfyData);
-          navigate('/customer/products');
-        }
+        const stringfyData = JSON.stringify(data);
+        localStorage.setItem('userData', stringfyData);
+        navigate('/customer/products');
       })
-      .catch((err) => console.log(err));
+      .catch(() => setInvalidRegistered(true));
   };
 
   return (
