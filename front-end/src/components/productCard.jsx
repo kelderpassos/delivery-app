@@ -1,7 +1,16 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function ProductCard({ id, image, name, price }) {
+  const [itemAmount, setItemAmount] = useState(0);
+
+  const handleAddCart = () => {
+    setItemAmount(itemAmount + 1);
+    const totalPrice = price * itemAmount;
+    const itemObj = { id, name, totalPrice };
+    localStorage.setItem(name, JSON.stringify(itemObj));
+  };
+
   return (
     <div>
       <p data-testid={ `customer_products__element-card-title-${id}` }>
@@ -21,11 +30,12 @@ export default function ProductCard({ id, image, name, price }) {
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
+          onClick={ handleAddCart }
         >
           Add to cart
         </button>
         <p>
-          0
+          { itemAmount }
         </p>
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
