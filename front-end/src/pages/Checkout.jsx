@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 export default function Checkout() {
   const [allProducts, setAllProducts] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0.00);
+  // const [allSellers, setAllSellers] = useState([]);
 
   const calculateTotal = () => {
     const total = allProducts.reduce((acc, crr) => acc + crr.total, 0);
@@ -20,6 +21,10 @@ export default function Checkout() {
     const orderItems = JSON.parse(getItems);
     setAllProducts(orderItems || []);
   }, []);
+
+  useEffect(() => {
+    // fazer requisição com axios 3001/sellers
+  });
 
   return (
     <div>
