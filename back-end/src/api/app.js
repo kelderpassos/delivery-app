@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(userRoute);
 app.use(productRoute);
 
+app.use(express.static('public'));
 app.use(errorMiddleware);
 
 module.exports = app;
