@@ -1,8 +1,25 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ProductCards({ id, name, urlImage, price }) {
   const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    setCounter(counter);
+    const totalPrice = (price * counter).toFixed(2);
+    const itemObj = { id, name, totalPrice, counter };
+
+    if (counter === 0) {
+      const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const arrNew = arr.filter((element) => element.id !== itemObj.id);
+      localStorage.setItem('carrinho', JSON.stringify(arrNew));
+    } else {
+      const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const arrNew = arr.filter((element) => element.id !== itemObj.id);
+      arrNew.push(itemObj);
+      localStorage.setItem('carrinho', JSON.stringify(arrNew));
+    }
+  }, [counter, id, name, price]);
 
   const handleButtons = ({ target }) => {
     if (target.name === 'add') {
@@ -10,10 +27,6 @@ export default function ProductCards({ id, name, urlImage, price }) {
     } else {
       setCounter((prevState) => (counter === 0 ? prevState : prevState - 1));
     }
-    const totalPrice = (price * counter).toFixed(2);
-    const itemObj = { id, name, totalPrice, counter };
-
-    localStorage.setItem(name, JSON.stringify(itemObj));
   };
 
   return (
@@ -23,7 +36,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
           <p
             data-testid={ `customer_products__element-card-price-${id}` }
           >
-            {price}
+            {price.replace('.', ',')}
           </p>
           <img
             src={ urlImage }
