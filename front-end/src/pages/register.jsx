@@ -21,7 +21,6 @@ export default function Register() {
   };
 
   const handleSubmit = (evt) => {
-    const ERROR_STATUS = 409;
     evt.preventDefault();
     fetch('http://localhost:3001/register', {
       method: 'POST',
@@ -30,10 +29,13 @@ export default function Register() {
       },
       body: JSON.stringify(input),
     })
-      .then((response) => {
-        if (response.status === ERROR_STATUS) {
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.token) {
           setInvalidRegistered(true);
         } else {
+          const { token } = data;
+          localStorage.setItem('token', token);
           navigate('/customer/products');
         }
       })
