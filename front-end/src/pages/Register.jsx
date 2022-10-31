@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Register() {
   const [input, setInput] = useState({ name: '', email: '', password: '' });
@@ -21,19 +22,17 @@ export default function Register() {
   };
 
   const handleSubmit = (evt) => {
-    const ERROR_STATUS = 409;
     evt.preventDefault();
-    fetch('http://localhost:3001/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(input),
-    })
-      .then((response) => {
-        if (response.status === ERROR_STATUS) {
+
+    axios.post('http://localhost:3001/register', input)
+      .then((response) => response.data)
+      .then((data) => {
+        console.log(data);
+        if (!data.token) {
           setInvalidRegistered(true);
         } else {
+          const stringfyData = JSON.stringify(data);
+          localStorage.setItem('userData', stringfyData);
           navigate('/customer/products');
         }
       })

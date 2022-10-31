@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
   const [input, setInput] = useState({ email: '', password: '' });
@@ -24,19 +25,16 @@ export default function Login() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const ERROR_STATUS = 404;
 
-    fetch('http://localhost:3001/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(input),
-    })
+    axios.post('http://localhost:3001/login', input)
+      .then((response) => response.data)
       .then((data) => {
-        if (data.status === ERROR_STATUS) {
+        console.log(data);
+        if (!data.token) {
           setInvalidLogin(true);
         } else {
+          const stringfyData = JSON.stringify(data);
+          localStorage.setItem('userData', stringfyData);
           navigate('/customer/products');
         }
       })
