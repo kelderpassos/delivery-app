@@ -27,7 +27,11 @@ export default function Checkout() {
       <div>
         <h2>Finish Order</h2>
         <CheckoutTable items={ allProducts } />
-        <p>{ `Total: R$ ${orderTotal}` }</p>
+        <p
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          { `Total: R$ ${orderTotal}` }
+        </p>
       </div>
     </div>
   );
