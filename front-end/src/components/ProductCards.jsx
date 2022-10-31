@@ -1,21 +1,34 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ProductCards({ id, name, urlImage, price }) {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    const addedProduct = { name, price, counter };
-    const teste = { product: addedProduct}
-    localStorage.setItem('cart', JSON.stringify(addedProduct));
-    console.log(teste);
-  }, [counter]);
+    setCounter(counter);
+    const totalPrice = (price * counter).toFixed(2);
+    const itemObj = { id, name, totalPrice, counter };
+
+    if (counter === 0) {
+      const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const arrNew = arr.filter((element) => element.id !== itemObj.id);
+      localStorage.setItem('carrinho', JSON.stringify(arrNew));
+      const total = arrNew.reduce((sum, obj) => obj.totalPrice + sum, 0);
+      console.log(`total is = ${total}`);
+    } else {
+      const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const arrNew = arr.filter((element) => element.id !== itemObj.id);
+      arrNew.push(itemObj);
+      localStorage.setItem('carrinho', JSON.stringify(arrNew));
+      const total = arrNew.reduce((sum, obj) => obj.totalPrice + sum, 0);
+      console.log(`total is = ${total}`);
+    }
+  }, [counter, id, name, price]);
 
   const handleButtons = ({ target }) => {
     if (target.name === 'add') {
-      setCounter((prevState) => prevState + 1);
-    }
-    if (target.name === 'sub') {
+      setCounter(counter + 1);
+    } else {
       setCounter((prevState) => (counter === 0 ? prevState : prevState - 1));
     }
   };
@@ -27,20 +40,20 @@ export default function ProductCards({ id, name, urlImage, price }) {
           <p
             data-testid={ `customer_products__element-card-price-${id}` }
           >
-            {price}
+            {price.replace('.', ',')}
           </p>
           <img
             src={ urlImage }
             alt={ `${name}` }
             data-testid={ `customer_products__img-card-bg-image-${id}` }
           />
-        </section>
-        <section>
           <p
             data-testid={ `customer_products__element-card-title-${id}` }
           >
             {name}
           </p>
+        </section>
+        <section>
           <button
             name="sub"
             type="button"
@@ -49,11 +62,11 @@ export default function ProductCards({ id, name, urlImage, price }) {
           >
             -
           </button>
-          <div
+          <input
+            type="number"
+            value={ counter }
             data-testid={ `customer_products__input-card-quantity-${id}` }
-          >
-            {counter}
-          </div>
+          />
           <button
             name="add"
             type="button"
@@ -62,6 +75,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
           >
             +
           </button>
+
         </section>
       </div>
 
