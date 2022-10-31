@@ -29,16 +29,11 @@ export default function Login() {
     axios.post('http://localhost:3001/login', input)
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
-        if (!data.token) {
-          setInvalidLogin(true);
-        } else {
-          const stringfyData = JSON.stringify(data);
-          localStorage.setItem('userData', stringfyData);
-          navigate('/customer/products');
-        }
+        const stringfyData = JSON.stringify(data);
+        localStorage.setItem('userData', stringfyData);
+        navigate('/customer/products');
       })
-      .catch((err) => console.log(err));
+      .catch(() => setInvalidLogin(true));
   };
 
   return (
