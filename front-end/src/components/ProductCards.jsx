@@ -4,18 +4,16 @@ import React, { useState } from 'react';
 export default function ProductCards({ id, name, urlImage, price }) {
   const [counter, setCounter] = useState(0);
 
-  /*  const handleAddCart = () => {
-    setItemAmount(itemAmount + 1);
-    const totalPrice = price * itemAmount;
-    const itemObj = { id, name, totalPrice, itemAmount };
-    localStorage.setItem(name, JSON.stringify(itemObj));
-  }; */
-
   const handleButtons = ({ target }) => {
-    if (target.name === 'add') setCounter((prevState) => prevState + 1);
-    if (target.name === 'sub') {
+    if (target.name === 'add') {
+      setCounter(counter + 1);
+    } else {
       setCounter((prevState) => (counter === 0 ? prevState : prevState - 1));
     }
+    const totalPrice = (price * counter).toFixed(2);
+    const itemObj = { id, name, totalPrice, counter };
+
+    localStorage.setItem(name, JSON.stringify(itemObj));
   };
 
   return (
@@ -32,13 +30,13 @@ export default function ProductCards({ id, name, urlImage, price }) {
             alt={ `${name}` }
             data-testid={ `customer_products__img-card-bg-image-${id}` }
           />
-        </section>
-        <section>
           <p
             data-testid={ `customer_products__element-card-title-${id}` }
           >
             {name}
           </p>
+        </section>
+        <section>
           <button
             name="sub"
             type="button"
@@ -47,11 +45,11 @@ export default function ProductCards({ id, name, urlImage, price }) {
           >
             -
           </button>
-          <div
+          <input
+            type="number"
+            value={ counter }
             data-testid={ `customer_products__input-card-quantity-${id}` }
-          >
-            {counter}
-          </div>
+          />
           <button
             name="add"
             type="button"
