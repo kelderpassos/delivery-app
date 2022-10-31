@@ -33,8 +33,8 @@ export default function Login() {
         if (!data.token) {
           setInvalidLogin(true);
         } else {
-          const { token } = data;
-          localStorage.setItem('token', token);
+          const stringfyData = JSON.stringify(data);
+          localStorage.setItem('userData', stringfyData);
           navigate('/customer/products');
         }
       })

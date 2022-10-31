@@ -31,8 +31,8 @@ export default function Register() {
         if (!data.token) {
           setInvalidRegistered(true);
         } else {
-          const { token } = data;
-          localStorage.setItem('token', token);
+          const stringfyData = JSON.stringify(data);
+          localStorage.setItem('userData', stringfyData);
           navigate('/customer/products');
         }
       })
