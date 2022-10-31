@@ -13,11 +13,15 @@ export default function ProductCards({ id, name, urlImage, price }) {
       const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
       const arrNew = arr.filter((element) => element.id !== itemObj.id);
       localStorage.setItem('carrinho', JSON.stringify(arrNew));
+      const total = arrNew.reduce((sum, obj) => obj.totalPrice + sum, 0);
+      console.log(`total is = ${total}`);
     } else {
       const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
       const arrNew = arr.filter((element) => element.id !== itemObj.id);
       arrNew.push(itemObj);
       localStorage.setItem('carrinho', JSON.stringify(arrNew));
+      const total = arrNew.reduce((sum, obj) => obj.totalPrice + sum, 0);
+      console.log(`total is = ${total}`);
     }
   }, [counter, id, name, price]);
 
@@ -71,6 +75,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
           >
             +
           </button>
+
         </section>
       </div>
 
