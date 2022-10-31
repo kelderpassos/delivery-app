@@ -4,7 +4,7 @@ const productController = require('../controller/product.controller');
 
 const productRoute = Router();
 
-productRoute.get('/customer/products', rescue((req, res, next) => 
+productRoute.get('/customer/products', rescue((req, res, _next) => 
   productController.getAllProducts(req, res)));
 
 module.exports = productRoute;
