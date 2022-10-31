@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function NavBar() {
   const [loggedUser, setLoggedUser] = useState('');
+  console.log(setLoggedUser);
 
   return (
     <header>
