@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import ProductCards from '../components/ProductCards';
 
@@ -19,7 +19,16 @@ export default function Products() {
     <div>
       <NavBar />
       <main>
-        <ProductCards products={ allProducts } />
+        {
+          allProducts.map((product) => (
+            <ProductCards
+              key={ product.id }
+              id={ product.id }
+              name={ product.name }
+              urlImage={ product.urlImage }
+              price={ product.price }
+            />))
+        }
       </main>
     </div>
   );
