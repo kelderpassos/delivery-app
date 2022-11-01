@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartDispatchContext } from '../context/CartContext';
 
 export default function ProductCards({ id, name, urlImage, price }) {
@@ -15,7 +15,8 @@ export default function ProductCards({ id, name, urlImage, price }) {
       const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
       const arrNew = arr.filter((element) => element.id !== itemObj.id);
       localStorage.setItem('carrinho', JSON.stringify(arrNew));
-      setCart(0);
+      const sumOfPrices = arrNew.reduce((acc, obj) => Number(obj.totalPrice) + acc, 0);
+      setCart(sumOfPrices);
     } else {
       const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
       const arrNew = arr.filter((element) => element.id !== itemObj.id);
