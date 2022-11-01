@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import ProductCards from '../components/ProductCards';
@@ -36,14 +36,21 @@ export default function Products() {
               price={ product.price }
             />))
         }
-        <button
-          type="button"
-          onClick={ () => navigate('/customer/checkout') }
-          disabled={ isDisabled }
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          {`Check cart: ${cart.toFixed(2).replace('.', ',')}`}
-        </button>
+        <section>
+          <button
+            type="button"
+            onClick={ () => navigate('/customer/checkout') }
+            disabled={ isDisabled }
+            data-testid="customer_products__button-cart"
+          >
+            {'Check cart: '}
+            <p
+              data-testid="customer_products__checkout-bottom-value"
+            >
+              {cart.toFixed(2).replace('.', ',')}
+            </p>
+          </button>
+        </section>
       </main>
     </div>
   );
