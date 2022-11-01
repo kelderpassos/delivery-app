@@ -7,11 +7,11 @@ const create = async (req, res) => {
 
   const status = 'Pendente';
 
-  const newId = saleService.create(
+  const newOrderId = await saleService.create(
     { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products },
   );
 
-  res.status(201).json({ newOrderId: newId });
+  res.status(201).json({ newOrderId });
 };
 
 module.exports = { create };
