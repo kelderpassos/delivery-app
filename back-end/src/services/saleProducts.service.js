@@ -4,7 +4,7 @@ const { salesProduct } = models;
 
 const bulkCreate = async (products) => {
   const result = await salesProduct.bulkCreate([...products]);
-  console.log(result);
+  return result;
 };
 
 module.exports = { bulkCreate };
