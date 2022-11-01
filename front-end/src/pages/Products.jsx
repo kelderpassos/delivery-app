@@ -40,9 +40,13 @@ export default function Products() {
           type="button"
           onClick={ () => navigate('/customer/checkout') }
           disabled={ isDisabled }
-          data-testid="customer_products__checkout-bottom-value"
+          data-testid="customer_products__button-cart"
         >
-          {`Check cart: ${cart.toFixed(2).replace('.', ',')}`}
+          <p
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            {`Check cart: ${cart.toFixed(2).replace('.', ',')}`}
+          </p>
         </button>
       </main>
     </div>

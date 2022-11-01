@@ -11,7 +11,7 @@ export default function Checkout() {
 
   const calculateTotal = () => {
     const total = allProducts.reduce((acc, crr) => acc + Number(crr.totalPrice), 0);
-    setOrderTotal(total.toFixed(2));
+    setOrderTotal(total.toFixed(2).replace('.', ','));
   };
   //   <table>
   //     <thead>
@@ -147,7 +147,10 @@ export default function Checkout() {
             data-testid="customer_checkout__input-address-number"
           />
         </label>
-        <button type="submit">
+        <button
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+        >
           FINISH ORDER
         </button>
       </form>

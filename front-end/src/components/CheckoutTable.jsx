@@ -43,12 +43,12 @@ export default function CheckoutTable({ items, setAllItems }) {
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${ind}` }
             >
-              { product.price }
+              { product.price.replace('.', ',') }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${ind}` }
             >
-              { product.totalPrice }
+              { product.totalPrice.replace('.', ',') }
             </td>
             <td>
               <button
