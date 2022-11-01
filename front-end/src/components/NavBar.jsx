@@ -16,13 +16,13 @@ export default function NavBar() {
       <nav>
         <NavLink
           data-testid="customer_products__element-navbar-link-products"
-          to="/products"
+          to="/customer/products"
         >
           Produtos
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-link-orders"
-          to="/orders"
+          to="/customer/orders"
         >
           Meus Pedidos
         </NavLink>
