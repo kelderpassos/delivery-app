@@ -5,12 +5,12 @@ module.exports = {
     await queryInterface.createTable("sales_products", {
       sale_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
       product_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
       quantity: {
