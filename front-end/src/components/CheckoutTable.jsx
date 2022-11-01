@@ -1,8 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function CheckoutTable(allProducts = []) {
-  console.log(allProducts);
-
+export default function CheckoutTable({ items }) {
   const handleRemove = ({ target }) => {
     const { value } = target;
     console.log(value);
@@ -21,12 +20,12 @@ export default function CheckoutTable(allProducts = []) {
         </tr>
       </thead>
       <tbody>
-        {allProducts.length && allProducts.map((product, ind) => (
+        {items.map((product, ind) => (
           <tr key={ ind }>
             <td
               data-testid={ `customer_checkout__element-order-table-item-number-${ind}` }
             >
-              { product.id }
+              { ind + 1 }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-name-${ind}` }
@@ -36,7 +35,7 @@ export default function CheckoutTable(allProducts = []) {
             <td
               data-testid={ `customer_checkout__element-order-table-quantity-${ind}` }
             >
-              { product.quantity }
+              { product.counter }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${ind}` }
@@ -46,7 +45,7 @@ export default function CheckoutTable(allProducts = []) {
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${ind}` }
             >
-              { product.total }
+              { product.totalPrice }
             </td>
             <td>
               <button
@@ -64,3 +63,7 @@ export default function CheckoutTable(allProducts = []) {
     </table>
   );
 }
+
+CheckoutTable.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+};
