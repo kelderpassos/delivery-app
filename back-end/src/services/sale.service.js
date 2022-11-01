@@ -1,12 +1,15 @@
 const models = require('../database/models');
 const saleProductsService = require('./saleProducts.service');
+const userService = require('./user.service');
 
 const { Sale, sequelize } = models;
 
 const create = async (
-  { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products },
+  { name, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products },
 ) => {
   const newSale = await sequelize.transaction(async (transaction) => {
+    const { id: userId } = await userService.findByName({ name });
+
     const created = await Sale.create(
      { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status },
      { transaction },
