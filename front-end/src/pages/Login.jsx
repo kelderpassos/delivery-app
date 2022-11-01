@@ -31,8 +31,6 @@ export default function Login() {
       .then((data) => {
         const stringfyData = JSON.stringify(data);
         localStorage.setItem('user', stringfyData);
-        localStorage
-          .setItem('cart', []);
         navigate('/customer/products');
       })
       .catch(() => setInvalidLogin(true));

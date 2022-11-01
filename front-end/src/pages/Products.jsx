@@ -1,10 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import NavBar from '../components/NavBar';
 import ProductCards from '../components/ProductCards';
+import { CartContext } from '../context/CartContext';
 
 export default function Products() {
   const [allProducts, setAllProducts] = useState([]);
+  const cart = useContext(CartContext);
 
   const request = async () => {
     const { data } = await axios.get('http://localhost:3001/customer/products');
@@ -29,6 +31,11 @@ export default function Products() {
               price={ product.price }
             />))
         }
+        <div
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {cart.toFixed(2).replace('.', ',')}
+        </div>
       </main>
     </div>
   );
