@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { CartDispatchContext } from '../context/CartContext';
 
 export default function ProductCards({ id, name, urlImage, price }) {
   const [counter, setCounter] = useState(0);
+  const setCart = useContext(CartDispatchContext);
 
   useEffect(() => {
     setCounter(counter);
@@ -13,22 +15,22 @@ export default function ProductCards({ id, name, urlImage, price }) {
       const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
       const arrNew = arr.filter((element) => element.id !== itemObj.id);
       localStorage.setItem('carrinho', JSON.stringify(arrNew));
-      const total = arrNew.reduce((sum, obj) => Number(obj.totalPrice) + sum, 0);
-      console.log(`total is = ${total}`);
+      setCart(0);
     } else {
       const arr = JSON.parse(localStorage.getItem('carrinho')) || [];
       const arrNew = arr.filter((element) => element.id !== itemObj.id);
       arrNew.push(itemObj);
       localStorage.setItem('carrinho', JSON.stringify(arrNew));
-      const total = arrNew.reduce((sum, obj) => Number(obj.totalPrice) + sum, 0);
-      console.log(`total is = ${total}`);
+      const sumOfPrices = arrNew.reduce((acc, obj) => Number(obj.totalPrice) + acc, 0);
+      setCart(sumOfPrices);
     }
-  }, [counter, id, name, price]);
+  }, [counter, id, name, price, setCart]);
 
   const handleButtons = ({ target }) => {
     if (target.name === 'add') {
       setCounter(Number(counter) + 1);
-    } else {
+    }
+    if (target.name === 'sub') {
       setCounter((prevState) => (Number(counter) === 0 ? prevState : prevState - 1));
     }
   };
