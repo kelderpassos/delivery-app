@@ -1,4 +1,5 @@
 const models = require('../database/models');
+const CustomError = require('../helpers/CustomError');
 const saleProductsService = require('./saleProducts.service');
 
 const { Sale, sequelize } = models;
@@ -23,4 +24,13 @@ const create = async (
   return newSale;
 };
 
-module.exports = { create };
+const getById = async (id) => {
+  const specificSale = await Sale.findByPk(id);
+
+  if (!specificSale) throw new CustomError(404, 'sale not found');
+
+  return specificSale;
+}
+
+
+module.exports = { create, getById };

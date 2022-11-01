@@ -11,7 +11,15 @@ const create = async (req, res) => {
     { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products },
   );
 
-  res.status(201).json({ newOrderId });
+  return res.status(201).json({ newOrderId });
 };
 
-module.exports = { create };
+const getById = async (req, res) => {
+  const { id  } = req.params;
+
+  const specificSale = await saleService.getById(id);
+
+  return res.status(200).json(specificSale);
+}
+
+module.exports = { create, getById };
