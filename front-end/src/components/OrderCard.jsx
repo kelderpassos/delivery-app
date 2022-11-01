@@ -5,18 +5,26 @@ export default function OrderCard({ id, status, price, date }) {
   return (
     <div>
       <section>
-        <div>
+        <div
+          data-testid={ `customer_orders__element-order-${id}` }
+        >
           {`Pedido: ${id}`}
         </div>
-        <p>
+        <p
+          data-testid={ `customer_orders__element-delivery-status-${id}` }
+        >
           {`Status: ${status}`}
         </p>
       </section>
       <section>
-        <p>
+        <p
+          data-testid={ `customer_orders__element-card-price-${id}` }
+        >
           {price.replace('.', ',')}
         </p>
-        <p>
+        <p
+          data-testid={ `customer_orders__element-order-date-${id}` }
+        >
           {date}
         </p>
       </section>
