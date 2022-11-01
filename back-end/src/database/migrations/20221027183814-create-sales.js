@@ -12,13 +12,11 @@ module.exports = {
       user_id: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true,
         onDelete: 'CASCADE'
       },
       seller_id: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true,
         onDelete: 'CASCADE'
       },
       total_price: {
