@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function CheckoutTable({ items }) {
+export default function CheckoutTable({ items, setAllItems }) {
   const handleRemove = ({ target }) => {
     const { value } = target;
-    console.log(value);
+    const newProducts = items.filter(({ id }) => id !== Number(value));
+    console.log(newProducts);
+    localStorage.setItem('carrinho', JSON.stringify(newProducts));
+    setAllItems(newProducts);
   };
 
   return (
@@ -66,4 +69,5 @@ export default function CheckoutTable({ items }) {
 
 CheckoutTable.propTypes = {
   items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  setAllItems: PropTypes.func.isRequired,
 };

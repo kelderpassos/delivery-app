@@ -95,7 +95,8 @@ export default function Checkout() {
       <NavBar />
       <h3>Finish Order</h3>
       <div>
-        {allProducts.length > 0 && <CheckoutTable items={ allProducts } />}
+        {allProducts.length > 0
+          && <CheckoutTable items={ allProducts } setAllItems={ setAllProducts } />}
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
