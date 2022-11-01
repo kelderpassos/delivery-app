@@ -6,6 +6,8 @@ const CustomError = require('../helpers/CustomError');
 
 const { User } = models;
 
+const findByName = async ({ name }) => User.findOne({ where: { name } });
+
 const login = async ({ email, password }) => {
   const result = await User.findOne({
     where: { email },
@@ -53,4 +55,4 @@ const findSellersNames = async () => User.findAll({
   attributes: ['name'],
 });
 
-module.exports = { login, customerRegister, findSellersNames };
+module.exports = { login, customerRegister, findSellersNames, findByName };
