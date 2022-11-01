@@ -36,21 +36,18 @@ export default function Products() {
               price={ product.price }
             />))
         }
-        <section>
-          <button
-            type="button"
-            onClick={ () => navigate('/customer/checkout') }
-            disabled={ isDisabled }
-            data-testid="customer_products__button-cart"
+        <button
+          type="button"
+          onClick={ () => navigate('/customer/checkout') }
+          disabled={ isDisabled }
+          data-testid="customer_products__button-cart"
+        >
+          <p
+            data-testid="customer_products__checkout-bottom-value"
           >
-            {'Check cart: '}
-            <p
-              data-testid="customer_products__checkout-bottom-value"
-            >
-              {cart.toFixed(2).replace('.', ',')}
-            </p>
-          </button>
-        </section>
+            {`Check cart: ${cart.toFixed(2).replace('.', ',')}`}
+          </p>
+        </button>
       </main>
     </div>
   );

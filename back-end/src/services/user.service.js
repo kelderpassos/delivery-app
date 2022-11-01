@@ -50,7 +50,7 @@ const customerRegister = async ({ name, email, password }, role = 'customer') =>
 
 const findSellersNames = async () => User.findAll({
   where: { role: 'seller' },
-  attributes: ['name'],
+  attributes: ['name', 'id'],
 });
 
 module.exports = { login, customerRegister, findSellersNames };
