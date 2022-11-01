@@ -23,4 +23,9 @@ const create = async (
   return newSale;
 };
 
-module.exports = { create };
+const getByConsumer = async (userId) => {
+  const sales = await Sale.findAll({where: {userId}})
+  return sales;
+};
+
+module.exports = { create, getByConsumer };

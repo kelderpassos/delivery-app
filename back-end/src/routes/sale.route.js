@@ -7,4 +7,7 @@ const saleRoute = Router();
 saleRoute.post('/sales', rescue((req, res, _next) => 
   saleController.create(req, res)));
 
+saleRoute.get('/sales', rescue((req, res, _next) => 
+  saleController.getByConsumer(req, res)));
+
 module.exports = saleRoute;

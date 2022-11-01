@@ -90,6 +90,22 @@ export default function Checkout() {
     setInput({ ...input, [target.name]: target.value });
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const req = {
+      userId: 1,
+      sellerId: 2,
+      totalPrice: orderTotal,
+      deliveryAddress: input.address,
+      deliveryNumber: input.number,
+      products: allProducts,
+    };
+    console.log(req);
+    await axios.post('http://localhost:3001/sales', req)
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div>
       <NavBar />
@@ -150,6 +166,7 @@ export default function Checkout() {
         <button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ handleSubmit }
         >
           FINISH ORDER
         </button>
