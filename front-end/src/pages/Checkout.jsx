@@ -10,19 +10,63 @@ export default function Checkout() {
   const [input, setInput] = useState({ seller: '', address: '', number: '' });
 
   const calculateTotal = () => {
-    const total = allProducts.reduce((acc, crr) => acc + crr.total, 0);
-    setOrderTotal(total.toFixed(2));
+    const total = allProducts.reduce((acc, crr) => acc + Number(crr.totalPrice), 0);
+    setOrderTotal(total.toFixed(2).replace('.', ','));
   };
-
-  useEffect(() => {
-    calculateTotal();
-  });
-
-  useEffect(() => {
-    const getItems = localStorage.getItem('items');
-    const orderItems = JSON.parse(getItems);
-    setAllProducts(orderItems || []);
-  }, []);
+  //   <table>
+  //     <thead>
+  //       <tr>
+  //         <th>Item</th>
+  //         <th>Description</th>
+  //         <th>Quantity</th>
+  //         <th>Price</th>
+  //         <th>Subtotal</th>
+  //         <th>Remove Item</th>
+  //       </tr>
+  //     </thead>
+  //     <tbody>
+  //       {allProducts.map((product, ind) => (
+  //         <tr key={ ind }>
+  //           <td
+  //             data-testid={ `customer_checkout__element-order-table-item-number-${ind}` }
+  //           >
+  //             { ind + 1 }
+  //           </td>
+  //           <td
+  //             data-testid={ `customer_checkout__element-order-table-name-${ind}` }
+  //           >
+  //             { product.name }
+  //           </td>
+  //           <td
+  //             data-testid={ `customer_checkout__element-order-table-quantity-${ind}` }
+  //           >
+  //             { product.counter }
+  //           </td>
+  //           <td
+  //             data-testid={ `customer_checkout__element-order-table-unit-price-${ind}` }
+  //           >
+  //             { product.price }
+  //           </td>
+  //           <td
+  //             data-testid={ `customer_checkout__element-order-table-sub-total-${ind}` }
+  //           >
+  //             { product.totalPrice }
+  //           </td>
+  //           <td>
+  //             <button
+  //               type="button"
+  //               value={ product.id }
+  //               onClick={ handleRemove }
+  //               data-testid={ `customer_checkout__element-order-table-remove-${ind}` }
+  //             >
+  //               Remove
+  //             </button>
+  //           </td>
+  //         </tr>
+  //       ))}
+  //     </tbody>
+  //   </table>
+  // );
 
   useEffect(() => {
     axios.get('http://localhost:3001/sellers')
@@ -30,6 +74,17 @@ export default function Checkout() {
       .then((data) => setAllSellers(data || []))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    const getItems = localStorage.getItem('carrinho');
+    const orderItems = JSON.parse(getItems);
+    console.log(orderItems);
+    setAllProducts(orderItems || []);
+  }, []);
+
+  useEffect(() => {
+    calculateTotal();
+  });
 
   const handleInput = ({ target }) => {
     setInput({ ...input, [target.name]: target.value });
@@ -40,7 +95,8 @@ export default function Checkout() {
       <NavBar />
       <h3>Finish Order</h3>
       <div>
-        <CheckoutTable items={ allProducts } />
+        {allProducts.length > 0
+          && <CheckoutTable items={ allProducts } setAllItems={ setAllProducts } />}
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
@@ -48,7 +104,7 @@ export default function Checkout() {
         </p>
       </div>
       <h3>Details and Delivery Address</h3>
-      <div>
+      <form>
         <label htmlFor="sellers">
           Seller
           <select
@@ -63,8 +119,8 @@ export default function Checkout() {
               </option>
             )}
             {
-              allSellers.map(({ name }, id) => (
-                <option key={ id }>
+              allSellers.map(({ name, id }) => (
+                <option key={ id } value={ id }>
                   { name }
                 </option>
               ))
@@ -91,7 +147,13 @@ export default function Checkout() {
             data-testid="customer_checkout__input-address-number"
           />
         </label>
-      </div>
+        <button
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          FINISH ORDER
+        </button>
+      </form>
     </div>
   );
 }
