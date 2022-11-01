@@ -19,10 +19,12 @@ const login = async ({ email, password }) => {
 
   const token = jwt.create({ email, hashPassword });
 
-  return token;
+  const { name, role } = result;
+
+  return { name, email, role, token };
 };
 
-const customerRegister = async ({ name, email, password }) => {
+const customerRegister = async ({ name, email, password }, role = 'customer') => {
   const userExists = await User.findOne({
     where: { [Op.or]: [
       { name },
@@ -38,12 +40,17 @@ const customerRegister = async ({ name, email, password }) => {
     name,
     email,
     password: hashPassword,
-    role: 'customer',
+    role,
   });
 
   const token = jwt.create({ email, hashPassword });
 
-  return token;
+  return { name, email, role, token };
 };
 
-module.exports = { login, customerRegister };
+const findSellersNames = async () => User.findAll({
+  where: { role: 'seller' },
+  attributes: ['name'],
+});
+
+module.exports = { login, customerRegister, findSellersNames };
