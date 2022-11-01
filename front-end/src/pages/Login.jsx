@@ -30,7 +30,9 @@ export default function Login() {
       .then((response) => response.data)
       .then((data) => {
         const stringfyData = JSON.stringify(data);
-        localStorage.setItem('userData', stringfyData);
+        localStorage.setItem('user', stringfyData);
+        localStorage
+          .setItem('cart', []);
         navigate('/customer/products');
       })
       .catch(() => setInvalidLogin(true));

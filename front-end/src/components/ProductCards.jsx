@@ -84,7 +84,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
 }
 
 ProductCards.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
