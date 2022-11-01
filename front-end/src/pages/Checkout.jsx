@@ -119,8 +119,8 @@ export default function Checkout() {
               </option>
             )}
             {
-              allSellers.map(({ name }, id) => (
-                <option key={ id }>
+              allSellers.map(({ name, id }) => (
+                <option key={ id } value={ id }>
                   { name }
                 </option>
               ))
