@@ -17,4 +17,13 @@ const create = async (req, res) => {
   return res.status(201).json({ newOrderId });
 };
 
-module.exports = { create };
+const findSalesBySeller = async (req, res) => {
+  const token = req.headers.authorization;
+  const { id } = jwt.validate(token);
+
+  const sales = await saleService.findSalesBySeller(id);
+
+  res.status(200).json(sales);
+};
+
+module.exports = { create, findSalesBySeller };
