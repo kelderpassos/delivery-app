@@ -18,9 +18,8 @@ const create = async (req, res) => {
 };
 
 const getByConsumer = async (req, res) => {
-  const { userId } = req.query;
-  console.log(userId);
-  const result = await saleService.getByConsumer(userId);
+  const { id } = req.query;
+  const result = await saleService.getByConsumer(id);
 
   return res.status(200).json(result);
 }

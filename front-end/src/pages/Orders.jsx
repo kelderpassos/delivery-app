@@ -7,11 +7,8 @@ export default function Orders() {
   const [orders, setOrders] = useState();
 
   const getOrders = async () => {
-    const req = {
-      userId: JSON.parse(localStorage.getItem('user')).id,
-    };
-    console.log(req);
-    await axios.get('http://localhost:3009/sales', { params: { userId: 3 } })
+    const { id } = JSON.parse(localStorage.getItem('user'));
+    await axios.get('http://localhost:3001/sales', { params: { id } })
       .then((result) => result.data)
       .then((data) => setOrders(data || []))
       .catch((err) => console.log(err));

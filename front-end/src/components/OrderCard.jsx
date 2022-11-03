@@ -36,5 +36,5 @@ OrderCard.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
 };
