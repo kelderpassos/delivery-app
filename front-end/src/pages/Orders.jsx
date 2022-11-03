@@ -7,7 +7,7 @@ export default function Orders() {
   const [orders, setOrders] = useState();
 
   const getOrders = () => {
-    axios.get('http://localhost:3001/customer/orders')
+    axios.get('http://localhost:3001/sales')
       .then((result) => result.data)
       .then((data) => setOrders(data || []))
       .catch((err) => console.log(err));
