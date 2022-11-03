@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -23,6 +23,12 @@ export default function Login() {
     navigate('/register');
   };
 
+  const checkUserLoggedIn = (isLogged) => {
+    if (isLogged) {
+      navigate('/customer/products');
+    }
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -35,6 +41,13 @@ export default function Login() {
       })
       .catch(() => setInvalidLogin(true));
   };
+
+  useEffect(() => {
+    const isLogged = JSON.parse(localStorage.getItem('user'))?.token;
+    if (isLogged) {
+      checkUserLoggedIn(true);
+    }
+  });
 
   return (
     <div>
