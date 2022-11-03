@@ -2,34 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function NavBar() {
-  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userRole, setUserRole] = useState('');
+
+  const textObj = {
+    customer: 'My Orders',
+    seller: 'Orders',
+    administrator: 'User Management',
+  };
 
   useEffect(() => () => {
-    const userData = localStorage.getItem('user');
-    const username = JSON.parse(userData);
-    setUser(username.name);
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserName(user.name);
+    setUserRole(user.role);
   });
+
+  const defineText = () => {
+    let text = '';
+    if (userRole.length) text = textObj[`${userRole}`];
+    return text;
+  };
 
   return (
     <header>
       <nav>
-        <NavLink
-          data-testid="customer_products__element-navbar-link-products"
-          to="/customer/products"
-        >
-          Produtos
-        </NavLink>
+        {userRole === 'customer' && (
+          <NavLink
+            data-testid="customer_products__element-navbar-link-products"
+            to="/customer/products"
+          >
+            Produtos
+          </NavLink>
+        )}
         <NavLink
           data-testid="customer_products__element-navbar-link-orders"
-          to="/customer/orders"
+          to={ `/${userRole}/orders` }
         >
-          Meus Pedidos
+          { defineText() }
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-user-full-name"
           to="/user"
         >
-          { user }
+          { userName }
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-link-logout"
