@@ -19,7 +19,7 @@ export default function NavBar() {
 
   const defineText = () => {
     let text = '';
-    if (userRole.length) text = textObj[`${userRole}`];
+    if (userRole.length) text = textObj[userRole];
     return text;
   };
 
@@ -31,7 +31,7 @@ export default function NavBar() {
             data-testid="customer_products__element-navbar-link-products"
             to="/customer/products"
           >
-            Produtos
+            Products
           </NavLink>
         )}
         <NavLink
@@ -51,7 +51,7 @@ export default function NavBar() {
           to="/login"
           onClick={ () => localStorage.removeItem('user') }
         >
-          Sair
+          Logout
         </NavLink>
       </nav>
     </header>
