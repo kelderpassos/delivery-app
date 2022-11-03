@@ -6,16 +6,17 @@ import OrderCard from '../components/OrderCard';
 export default function Orders() {
   const [orders, setOrders] = useState();
 
-  const getOrders = () => {
-    axios.get('http://localhost:3001/customer/orders')
+  const getOrders = async () => {
+    const { id } = JSON.parse(localStorage.getItem('user'));
+    await axios.get('http://localhost:3001/sales', { params: { id } })
       .then((result) => result.data)
       .then((data) => setOrders(data || []))
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => () => {
+  useEffect(() => {
     getOrders();
-  }, [orders]);
+  });
 
   return (
     <div>
@@ -26,8 +27,8 @@ export default function Orders() {
             key={ order.id }
             id={ order.id }
             status={ order.status }
-            price={ order.price }
-            date={ order.date }
+            price={ order.totalPrice }
+            date={ order.saleDate }
           />
         )) : 'No orders yet' }
 

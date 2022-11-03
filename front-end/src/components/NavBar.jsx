@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 export default function NavBar() {
   const [user, setUser] = useState('');
 
-  useEffect(() => () => {
+  useEffect(() => {
     const userData = localStorage.getItem('user');
     const username = JSON.parse(userData);
     setUser(username.name);
-  });
+  }, [user]);
 
   return (
     <header>
