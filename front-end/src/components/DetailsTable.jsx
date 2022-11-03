@@ -7,7 +7,6 @@ export default function DetailsTable(allProducts = []) {
   //   const { value } = target;
   //   console.log(value);
   // };
-
   return (
     <table>
       <thead>
