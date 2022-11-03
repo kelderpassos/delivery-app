@@ -18,10 +18,11 @@ const create = async (req, res) => {
 };
 
 const getByConsumer = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.query;
+  console.log(userId);
   const result = await saleService.getByConsumer(userId);
 
-  res.status(200).json(result);
+  return res.status(200).json(result);
 }
 
 module.exports = { create, getByConsumer };

@@ -21,9 +21,9 @@ const login = async ({ email, password }) => {
 
   const token = jwt.create({ email, hashPassword });
 
-  const { name, role } = result;
+  const { name, role, id } = result;
 
-  return { name, email, role, token };
+  return { id, name, email, role, token };
 };
 
 const customerRegister = async ({ name, email, password }, role = 'customer') => {
@@ -52,7 +52,7 @@ const customerRegister = async ({ name, email, password }, role = 'customer') =>
 
 const findSellersNames = async () => User.findAll({
   where: { role: 'seller' },
-  attributes: ['name'],
+  attributes: ['name', 'id'],
 });
 
 module.exports = { login, customerRegister, findSellersNames, findByName };

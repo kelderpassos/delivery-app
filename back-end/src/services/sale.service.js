@@ -29,7 +29,7 @@ const create = async (
 };
 
 const getByConsumer = async (userId) => {
-  const sales = await Sale.findAll({where: {userId}})
+  const sales = await Sale.findAll({ where: { userId } })
   return sales;
 };
 
