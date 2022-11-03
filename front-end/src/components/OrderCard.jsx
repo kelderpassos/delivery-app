@@ -25,7 +25,7 @@ export default function OrderCard({ id, status, price, date }) {
         <p
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {date}
+          {date.replaceAll('-', '/')}
         </p>
       </section>
     </div>
