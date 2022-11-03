@@ -17,11 +17,16 @@ export default function NavBar() {
     setUserRole(user.role);
   });
 
-  const defineNavLink = () => {
-    if (userRole.length) return roleObj[userRole].text;
-    return '';
-  };
+  const defineNavLink = () => (
+    <NavLink
+      data-testid="customer_products__element-navbar-link-orders"
+      to={ `${roleObj[userRole].url}` }
+    >
+      { roleObj[userRole].text }
+    </NavLink>
+  );
 
+  console.log(userName, userRole);
   return (
     <header>
       <nav>
@@ -33,12 +38,7 @@ export default function NavBar() {
             Products
           </NavLink>
         )}
-        <NavLink
-          data-testid="customer_products__element-navbar-link-orders"
-          to={ userRole.length && `${roleObj[userRole].url}` }
-        >
-          { defineNavLink() }
-        </NavLink>
+        {userRole.length && defineNavLink()}
         <NavLink
           data-testid="customer_products__element-navbar-user-full-name"
           to="/user"
