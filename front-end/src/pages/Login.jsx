@@ -7,6 +7,12 @@ export default function Login() {
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
 
+  const redirectObj = {
+    customer: '/customer/products',
+    seller: '/seller/orders',
+    administrator: '/admin/manage',
+  };
+
   const validFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     const validEmail = emailPattern.test(input.email);
@@ -31,7 +37,7 @@ export default function Login() {
       .then((data) => {
         const stringfyData = JSON.stringify(data);
         localStorage.setItem('user', stringfyData);
-        navigate('/customer/products');
+        navigate(redirectObj[data.role]);
       })
       .catch(() => setInvalidLogin(true));
   };
