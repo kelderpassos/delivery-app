@@ -5,10 +5,10 @@ export default function NavBar() {
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
 
-  const textObj = {
-    customer: 'My Orders',
-    seller: 'Orders',
-    administrator: 'User Management',
+  const roleObj = {
+    customer: { text: 'My Orders', url: '/customer/orders' },
+    seller: { text: 'Orders', url: '/seller/orders' },
+    administrator: { text: 'User Management', url: '/admin/manage' },
   };
 
   useEffect(() => () => {
@@ -17,10 +17,9 @@ export default function NavBar() {
     setUserRole(user.role);
   });
 
-  const defineText = () => {
-    let text = '';
-    if (userRole.length) text = textObj[userRole];
-    return text;
+  const defineNavLink = () => {
+    if (userRole.length) return roleObj[userRole].text;
+    return '';
   };
 
   return (
@@ -36,9 +35,9 @@ export default function NavBar() {
         )}
         <NavLink
           data-testid="customer_products__element-navbar-link-orders"
-          to={ `/${userRole}/orders` }
+          to={ userRole.length && `${roleObj[userRole].url}` }
         >
-          { defineText() }
+          { defineNavLink() }
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-user-full-name"
