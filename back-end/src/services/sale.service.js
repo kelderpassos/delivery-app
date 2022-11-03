@@ -28,4 +28,9 @@ const create = async (
   return newSale;
 };
 
-module.exports = { create };
+const findSalesBySeller = async (sellerId) => {
+  const sales = Sale.findAll({ where: { sellerId } });
+  return sales;
+};
+
+module.exports = { create, findSalesBySeller };
