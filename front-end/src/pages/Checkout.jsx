@@ -42,6 +42,7 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
+    console.log(input);
     calculateTotal();
   });
 
@@ -87,7 +88,11 @@ export default function Checkout() {
       <h3>Finish Order</h3>
       <div>
         {allProducts.length > 0
-          && <CheckoutTable items={ allProducts } setAllItems={ setAllProducts } />}
+          && <CheckoutTable
+            key="1"
+            items={ allProducts }
+            setAllItems={ setAllProducts }
+          />}
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
@@ -143,6 +148,7 @@ export default function Checkout() {
           onSubmit={ handleSubmit }
           disabled={ !validFields() }
           data-testid="customer_checkout__button-submit-order"
+          onClick={ handleSubmit }
         >
           FINISH ORDER
         </button>
