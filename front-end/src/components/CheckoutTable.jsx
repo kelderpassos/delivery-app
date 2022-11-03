@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function CheckoutTable(allProducts = []) {
-  console.log(allProducts);
-
+export default function CheckoutTable({ items, setAllItems }) {
   const handleRemove = ({ target }) => {
     const { value } = target;
-    console.log(value);
+    const newProducts = items.filter(({ id }) => id !== Number(value));
+    console.log(newProducts);
+    localStorage.setItem('carrinho', JSON.stringify(newProducts));
+    setAllItems(newProducts);
   };
 
   return (
@@ -21,12 +23,12 @@ export default function CheckoutTable(allProducts = []) {
         </tr>
       </thead>
       <tbody>
-        {allProducts.length && allProducts.map((product, ind) => (
+        {items.map((product, ind) => (
           <tr key={ ind }>
             <td
               data-testid={ `customer_checkout__element-order-table-item-number-${ind}` }
             >
-              { product.id }
+              { ind + 1 }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-name-${ind}` }
@@ -36,17 +38,17 @@ export default function CheckoutTable(allProducts = []) {
             <td
               data-testid={ `customer_checkout__element-order-table-quantity-${ind}` }
             >
-              { product.quantity }
+              { product.counter }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${ind}` }
             >
-              { product.price }
+              { product.price.replace('.', ',') }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${ind}` }
             >
-              { product.total }
+              { product.totalPrice.replace('.', ',') }
             </td>
             <td>
               <button
@@ -64,3 +66,8 @@ export default function CheckoutTable(allProducts = []) {
     </table>
   );
 }
+
+CheckoutTable.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  setAllItems: PropTypes.func.isRequired,
+};

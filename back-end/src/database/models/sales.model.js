@@ -22,7 +22,8 @@ const SalesModel = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
     },
     {
-      timestamps: false,
+      updatedAt: false,
+      createdAt: "saleDate",
       tableName: "sales",
       underscored: true,
     }
