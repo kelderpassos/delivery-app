@@ -18,6 +18,7 @@ const SalesProductsModel = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
+
   SalesProducts.associate = (models) => {
     models.Sale.belongsToMany(models.Product, {
       as: "products",
@@ -31,6 +32,16 @@ const SalesProductsModel = (sequelize, DataTypes) => {
       through: SalesProducts,
       foreignKey: "productId",
       otherKey: "saleId",
+    });
+
+    SalesProducts.belongsTo(models.Product, {
+      as: "products",
+      foreignKey: "productId",
+      onDelete: "CASCADE",
+    });
+
+    models.Product.hasMany(SalesProducts, {
+      as: "saleProducts",
     });
   };
 
