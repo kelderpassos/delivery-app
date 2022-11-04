@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import DetailsTable from '../components/DetailsTable';
 import NavBar from '../components/NavBar';
 
+const statusId = 'customer_order_details__element-order-details-label-delivery-status';
+
 export default function OrderDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
@@ -42,11 +44,25 @@ export default function OrderDetails() {
     <div>
       <NavBar />
       <div>
-        <p>{ `Order ${orderId}` }</p>
-        <p>{ `${seller?.name}` }</p>
-        <p>{ `${data}` }</p>
-        <p>{ status }</p>
-        <button type="button">
+        <p data-testid="customer_order_details__element-order-details-label-order-id">
+          { `Order ${orderId}` }
+        </p>
+        <p data-testid="customer_order_details__element-order-details-label-seller-name">
+          { `${seller?.name}` }
+        </p>
+        <p data-testid="customer_order_details__element-order-details-label-order-date">
+          { `${data}` }
+        </p>
+        <p
+          data-testid={ statusId }
+        >
+          { status }
+        </p>
+        <button
+          data-testid="customer_order_details__button-delivery-check"
+          type="button"
+          disabled={ status === 'Entregue' || false }
+        >
           Delivered
         </button>
       </div>

@@ -14,40 +14,44 @@ export default function DetailsTable({ allProducts }) {
         </tr>
       </thead>
       <tbody>
-        {allProducts.map((product, ind) => (
-          <tr key={ ind }>
-            <td
-              data-testid={ `customer_order_details_
+        {allProducts.map((product, ind) => {
+          const { quantity } = product.saleProducts[0];
+          const totalPrice = (product.price * quantity).toFixed(2).replace('.', ',');
+          return (
+            <tr key={ ind }>
+              <td
+                data-testid={ `customer_order_details_
               _element-order-table-item-number-${ind}` }
-            >
-              { ind + 1 }
-            </td>
-            <td
-              data-testid={ `customer_order_details_
+              >
+                { ind + 1 }
+              </td>
+              <td
+                data-testid={ `customer_order_details_
               _element-order-table-name-${ind}` }
-            >
-              { product.name }
-            </td>
-            <td
-              data-testid={ `customer_order_details_
+              >
+                { product.name }
+              </td>
+              <td
+                data-testid={ `customer_order_details_
               _element-order-table-quantity-${ind}` }
-            >
-              { product.quantity }
-            </td>
-            <td
-              data-testid={ `customer_order_details_
+              >
+                { quantity }
+              </td>
+              <td
+                data-testid={ `customer_order_details_
               _element-order-table-unit-price-${ind}` }
-            >
-              { product.price.replace('.', ',') }
-            </td>
-            <td
-              data-testid={ `customer_order_details_
+              >
+                { product.price.replace('.', ',') }
+              </td>
+              <td
+                data-testid={ `customer_order_details_
               _element-order-table-sub-total-${ind}` }
-            >
-              { product.total }
-            </td>
-          </tr>
-        ))}
+              >
+                { totalPrice }
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
