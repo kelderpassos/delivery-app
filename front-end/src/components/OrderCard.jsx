@@ -2,11 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function OrderCard({ id, status, price, date }) {
+  const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  const year = date.slice(NUMBERS[0], NUMBERS[4]);
+  const month = date.slice(NUMBERS[5], NUMBERS[7]);
+  const day = date.slice(NUMBERS[8], NUMBERS[10]);
+
   return (
     <div>
       <section>
         <div
-          data-testid={ `customer_orders__element-order-${id}` }
+          data-testid={ `customer_orders__element-order-id-${id}` }
         >
           {`Pedido: ${id}`}
         </div>
@@ -25,7 +30,7 @@ export default function OrderCard({ id, status, price, date }) {
         <p
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {date.replaceAll('-', '/')}
+          {`${day}/${month}/${year}`}
         </p>
       </section>
     </div>
