@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TEN = 10;
 
@@ -10,7 +11,7 @@ export default function SellerOrderCard({
   const date = saleDate.slice(0, TEN).replace(/-/g, '/');
 
   return (
-    <div>
+    <Link to={ `/seller/orders/${id}` }>
       <div>
         <p data-testid={ `seller_orders__element-order-id-${id}` }>{ num }</p>
       </div>
@@ -28,7 +29,7 @@ export default function SellerOrderCard({
           { `${deliveryAddress}, ${deliveryNumber}` }
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 
