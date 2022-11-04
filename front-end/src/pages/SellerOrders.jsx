@@ -18,7 +18,10 @@ export default function SellerOrders() {
     axios.get('http://localhost:3001/seller/orders', config)
       .then((result) => result.data)
       .then((data) => setOrders(data))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setOrders([]);
+      });
   }, []);
 
   return (
