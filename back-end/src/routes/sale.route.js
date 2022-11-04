@@ -11,6 +11,6 @@ saleRoute.get('/sales', rescue((req, res, _next) =>
   saleController.getByConsumer(req, res)));
 
 saleRoute.get('/seller/orders', rescue((req, res, _next) =>
-  saleController.findSalesBySeller(req, res)));
+  saleController.getSalesBySeller(req, res)));
 
 module.exports = saleRoute;
