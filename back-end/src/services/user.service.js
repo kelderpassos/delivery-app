@@ -21,9 +21,9 @@ const login = async ({ email, password }) => {
 
   const token = jwt.create({ id: result.id, email, hashPassword });
 
-  const { name, role } = result;
+  const { name, role, id } = result;
 
-  return { name, email, role, token };
+  return { id, name, email, role, token };
 };
 
 const customerRegister = async ({ name, email, password }, role = 'customer') => {
