@@ -61,7 +61,7 @@ export default function OrderDetails() {
         <button
           data-testid="customer_order_details__button-delivery-check"
           type="button"
-          disabled={ status === 'Entregue' || false }
+          disabled={ status !== 'Em Trânsito' }
         >
           Delivered
         </button>
