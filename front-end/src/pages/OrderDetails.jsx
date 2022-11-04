@@ -1,74 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import DetailsTable from '../components/DetailsTable';
 import NavBar from '../components/NavBar';
-// import { useParams } from 'react-router-dom';
 
 export default function OrderDetails() {
-  // const { id } = useParams();
+  const { id } = useParams();
+  const [order, setOrder] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  // const getCostumeOrders = () => {
-  //   axios.get(`http://localhost:3001/customer/orders/${id}`)
-  //     .then((result) => result.data)
-  //     .then((data) => setOrders(data || []))
-  //     .catch((err) => console.log(err));
-  // };
-
-  const [allProducts, setAllProducts] = useState([]);
-  const [orderTotal, setOrderTotal] = useState(0.00);
-  // const [orders, setOrders] = useState();
-
-  const calculateTotal = () => {
-    const total = allProducts.reduce((acc, crr) => acc + crr.total, 0);
-    setOrderTotal(total.toFixed(2));
-  };
-
-  const getOrders = async () => {
-    const { id } = JSON.parse(localStorage.getItem('user'));
-    await axios.get(`http://localhost:3009/sales/${id}`)
+  useEffect(() => {
+    axios.get(`http://localhost:3001/sales/${id}`)
       .then((result) => result.data)
-      .then((data) => setOrders(data || []))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        setOrder(data);
+        setProducts(data.products);
+      })
+      .catch((err) => {
+        setOrder(null);
+        console.log(err);
+      });
+  }, [id]);
+
+  const formatDate = (date) => {
+    const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+    const year = date.slice(NUMBERS[0], NUMBERS[4]);
+    const month = date.slice(NUMBERS[5], NUMBERS[7]);
+    const day = date.slice(NUMBERS[8], NUMBERS[10]);
+
+    return `${day}/${month}/${year}`;
   };
 
-  useEffect(() => {
-    getOrders();
-  });
+  const seller = order ? order.seller : null;
 
-  useEffect(() => {
-    calculateTotal();
-  });
-
-  useEffect(() => {
-    const getItems = localStorage.getItem('items');
-    const orderItems = JSON.parse(getItems);
-    setAllProducts(orderItems || []);
-  }, []);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3001/sellers')
-  //     .then((result) => result.data)
-  //     .then((data) => setAllSellers(data || []))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  const orderId = order ? order.id : '0000';
+  const status = order ? order.status : '';
+  const data = order ? formatDate(order.saleDate) : '';
+  const total = order ? order.totalPrice.replace('.', ',') : '00,00';
 
   return (
     <div>
       <NavBar />
       <div>
-        {/* <p>{ order.id }</p> */}
+        <p>{ `Order ${orderId}` }</p>
+        <p>{ `${seller?.name}` }</p>
+        <p>{ `${data}` }</p>
+        <p>{ status }</p>
+        <button type="button">
+          Delivered
+        </button>
       </div>
       <h3>Detail Order</h3>
       <div>
-        <DetailsTable
-          key="1"
-          items={ allProducts }
-          setAllProducts={ setAllProducts }
-        />
+        {products.length > 0 && (
+          <DetailsTable
+            allProducts={ products }
+          />
+        )}
         <p
           data-testid="customer_order_details__element-order-total-price"
         >
-          { `Total: R$ ${orderTotal}` }
+          { `Total: R$ ${total}` }
         </p>
       </div>
     </div>
