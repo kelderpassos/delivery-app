@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import NavBar from './components/NavBar';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Orders from './pages/Orders';
