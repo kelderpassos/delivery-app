@@ -1,9 +1,7 @@
-const { Sale, User, sequelize } = require('../database/models');
+const { Sale, User, Product, salesProduct, sequelize } = require('../database/models');
 const CustomError = require('../helpers/CustomError');
 const saleProductsService = require('./saleProducts.service');
 const userService = require('./user.service');
-
-// const { Sale, sequelize } = models;
 
 const create = async ({
   name, sellerId, totalPrice, deliveryAddress, deliveryNumber, products,
@@ -47,6 +45,13 @@ const getById = async (id) => {
     include: [
       { model: User, as: 'seller' },
       { model: User, as: 'users' },
+      { model: Product,
+        as: 'products',
+        through: { attributes: [] },
+        include: [
+          { model: salesProduct, as: 'saleProducts' },
+        ],
+      },
     ],
   });
 
