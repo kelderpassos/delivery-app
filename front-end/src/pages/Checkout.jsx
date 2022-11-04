@@ -31,8 +31,11 @@ export default function Checkout() {
   useEffect(() => {
     axios.get('http://localhost:3001/sellers')
       .then((result) => result.data)
-      .then((data) => setAllSellers(data || []))
-      .catch((err) => console.log(err));
+      .then((data) => setAllSellers(data))
+      .catch((err) => {
+        setAllSellers([]);
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {

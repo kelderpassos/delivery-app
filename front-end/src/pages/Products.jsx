@@ -12,8 +12,13 @@ export default function Products() {
   const navigate = useNavigate();
 
   const request = async () => {
-    const { data } = await axios.get('http://localhost:3001/customer/products');
-    setAllProducts(data);
+    try {
+      const { data } = await axios.get('http://localhost:3001/customer/products');
+      setAllProducts(data);
+    } catch (err) {
+      setAllProducts([]);
+      console.log(err);
+    }
   };
 
   useEffect(() => {
