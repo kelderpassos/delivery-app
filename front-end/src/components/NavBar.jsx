@@ -26,7 +26,6 @@ export default function NavBar() {
     </NavLink>
   );
 
-  console.log(userName, userRole);
   return (
     <header>
       <nav>

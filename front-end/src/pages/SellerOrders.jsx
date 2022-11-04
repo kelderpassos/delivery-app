@@ -21,8 +21,6 @@ export default function SellerOrders() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(orders);
-
   return (
     <div>
       <NavBar />
