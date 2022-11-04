@@ -1,12 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function DetailsTable(allProducts = []) {
-  console.log(allProducts);
-
-  // const handleRemove = ({ target }) => {
-  //   const { value } = target;
-  //   console.log(value);
-  // };
+export default function DetailsTable({ allProducts }) {
   return (
     <table>
       <thead>
@@ -19,13 +14,13 @@ export default function DetailsTable(allProducts = []) {
         </tr>
       </thead>
       <tbody>
-        {allProducts.length && allProducts.map((product, ind) => (
+        {allProducts.map((product, ind) => (
           <tr key={ ind }>
             <td
               data-testid={ `customer_order_details_
               _element-order-table-item-number-${ind}` }
             >
-              { product.id }
+              { ind + 1 }
             </td>
             <td
               data-testid={ `customer_order_details_
@@ -43,7 +38,7 @@ export default function DetailsTable(allProducts = []) {
               data-testid={ `customer_order_details_
               _element-order-table-unit-price-${ind}` }
             >
-              { product.price }
+              { product.price.replace('.', ',') }
             </td>
             <td
               data-testid={ `customer_order_details_
@@ -51,19 +46,13 @@ export default function DetailsTable(allProducts = []) {
             >
               { product.total }
             </td>
-            {/* <td>
-              <button
-                type="button"
-                value={ product.id }
-                onClick={ handleRemove }
-                data-testid={ `customer_checkout__element-order-table-remove-${ind}` }
-              >
-                Remove
-              </button>
-            </td> */}
           </tr>
         ))}
       </tbody>
     </table>
   );
 }
+
+DetailsTable.propTypes = {
+  allProducts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+};
