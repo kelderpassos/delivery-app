@@ -33,7 +33,7 @@ module.exports = {
       },
       sale_date: {
         allowNull: false,
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
       },
       status: {
         allowNull: false,

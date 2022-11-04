@@ -17,6 +17,15 @@ const create = async (req, res) => {
   return res.status(201).json({ newOrderId });
 };
 
+const getSalesBySeller = async (req, res) => {
+  const token = req.headers.authorization;
+  const { id } = jwt.validate(token);
+
+  const sales = await saleService.getSalesBySeller(id);
+
+  res.status(200).json(sales);
+};
+
 const getByConsumer = async (req, res) => {
   const { id } = req.query;
   const result = await saleService.getByConsumer(id);
@@ -32,4 +41,4 @@ const getById = async (req, res) => {
   return res.status(200).json(specificSale);
 };
 
-module.exports = { create, getById, getByConsumer };
+module.exports = { create, getById, getByConsumer, getSalesBySeller };
