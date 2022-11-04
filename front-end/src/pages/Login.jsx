@@ -38,7 +38,7 @@ export default function Login() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    axios.post('http://localhost:3001/login', input)
+    axios.post('http://localhost:3001/login/', input)
       .then((response) => response.data)
       .then((data) => {
         const stringfyData = JSON.stringify(data);
