@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function OrderCard({ id, status, price, date }) {
-  const navigate = useNavigate();
   const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   const year = date.slice(NUMBERS[0], NUMBERS[4]);
   const month = date.slice(NUMBERS[5], NUMBERS[7]);
