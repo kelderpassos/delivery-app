@@ -1,12 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
-export default function Register() {
-  const [input, setInput] = useState({ name: '',
-    email: '',
-    password: '',
-    role: 'customer' });
+export default function Admin() {
+  const [input, setInput] = useState({ name: '', email: '', password: '' });
   const [invalidRegistered, setInvalidRegistered] = useState(false);
 
   const navigate = useNavigate();
@@ -22,7 +20,6 @@ export default function Register() {
 
   const handleInput = ({ target }) => {
     setInput({ ...input, [target.name]: target.value });
-    console.log(input);
   };
 
   const handleSubmit = (evt) => {
@@ -40,6 +37,7 @@ export default function Register() {
 
   return (
     <div>
+      <NavBar />
       <section>
         <h4>Register</h4>
         <form onSubmit={ handleSubmit }>
