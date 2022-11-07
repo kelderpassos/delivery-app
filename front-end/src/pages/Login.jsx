@@ -43,9 +43,9 @@ export default function Login() {
   };
 
   useEffect(() => {
-    const { token, role } = JSON.parse(localStorage.getItem('user'));
-    if (token) {
-      navigate(redirectObj[role]);
+    const data = JSON.parse(localStorage.getItem('user'));
+    if (data) {
+      navigate(redirectObj[data.role]);
     }
   });
 
