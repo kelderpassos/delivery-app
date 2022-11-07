@@ -27,6 +27,7 @@ const adminRegister = async (req, res) => {
   }
 
   return res.status(401).json({ message: 'Unauthorized' });
+
 };
 
 const findSellersNames = async (_req, res) => {
