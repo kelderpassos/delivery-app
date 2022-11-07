@@ -26,9 +26,10 @@ export default function Orders() {
     <div>
       <NavBar />
       { orders.length
-        ? orders.map((order) => (
+        ? orders.map((order, numb) => (
           <OrderCard
             key={ order.id }
+            numb={ numb + 1 }
             id={ order.id }
             status={ order.status }
             price={ order.totalPrice }
