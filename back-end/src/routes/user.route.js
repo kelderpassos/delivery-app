@@ -10,6 +10,9 @@ userRoute.post('/login', rescue((req, res, _next) =>
 userRoute.post('/register', rescue((req, res, _next) =>
   userController.customerRegister(req, res)));
 
+userRoute.post('/admin/register', rescue((req, res, _next) =>
+  userController.adminRegister(req, res)));
+
 userRoute.get('/sellers', rescue((req, res, _next) =>
   userController.findSellersNames(req, res)));
 

@@ -31,6 +31,11 @@ export default function OrderDetails() {
     return `${day}/${month}/${year}`;
   };
 
+  const updateStatus = ({ target }) => {
+    const { value } = target;
+    console.log(value);
+  };
+
   const orderId = order ? order.id : '0000';
   const status = order ? order.status : '';
   const data = order ? formatDate(order.saleDate) : '';
@@ -57,6 +62,8 @@ export default function OrderDetails() {
           data-testid="seller_order_details__button-preparing-check"
           type="button"
           disabled={ status !== 'Pendente' }
+          value="Preparando"
+          onClick={ updateStatus }
         >
           Prepare Order
         </button>
