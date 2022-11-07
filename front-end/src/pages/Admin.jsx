@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 
 export default function Admin() {
-  const [input, setInput] = useState({ name: '', email: '', password: '', role: '' });
+  const [input, setInput] = useState({ name: '',
+    email: '',
+    password: '',
+    role: 'customer' });
   const [invalidRegistered, setInvalidRegistered] = useState(false);
-
-  const navigate = useNavigate();
 
   const validateFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -31,7 +31,6 @@ export default function Admin() {
       .then((data) => {
         const stringfyData = JSON.stringify(data);
         localStorage.setItem('user', stringfyData);
-        navigate('/customer/products');
       })
       .catch(() => setInvalidRegistered(true));
   };
@@ -71,10 +70,11 @@ export default function Admin() {
           </label>
           <select
             name="role"
+            defaultValue="customer"
             onChange={ handleInput }
             data-testid="admin_manage__select-role"
           >
-            <option value="customer" selected>customer</option>
+            <option value="customer">customer</option>
             <option value="seller">seller</option>
           </select>
           <button
