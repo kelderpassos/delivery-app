@@ -40,7 +40,9 @@ export default function OrderDetails() {
     <div>
       <NavBar />
       <div>
-        <p data-testid={ `seller_orders__element-card-address-${id}` }>
+        <p
+          data-testid="seller_order_details__element-order-details-label-order-id"
+        >
           { `Order ${orderId}` }
         </p>
         <p data-testid="seller_order_details__element-order-details-label-order-date">
