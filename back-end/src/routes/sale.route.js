@@ -13,4 +13,7 @@ saleRoute.get('/sales', rescue((req, res, _next) =>
 saleRoute.get('/seller/orders', rescue((req, res, _next) =>
   saleController.getSalesBySeller(req, res)));
 
+saleRoute.patch('/sales/:id', rescue((req, res, _next) => 
+  saleController.updateStatus(req, res)));
+
 module.exports = saleRoute;
