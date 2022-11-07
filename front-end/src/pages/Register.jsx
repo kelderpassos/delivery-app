@@ -22,7 +22,6 @@ export default function Register() {
 
   const handleInput = ({ target }) => {
     setInput({ ...input, [target.name]: target.value });
-    console.log(input);
   };
 
   const handleSubmit = (evt) => {
