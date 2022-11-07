@@ -26,7 +26,7 @@ const login = async ({ email, password }) => {
   return { id, name, email, role, token };
 };
 
-const customerRegister = async ({ name, email, password }, role = 'customer') => {
+const customerRegister = async ({ name, email, password, role }) => {
   const userExists = await User.findOne({
     where: { [Op.or]: [
       { name },
