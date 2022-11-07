@@ -1,11 +1,17 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [input, setInput] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
+
+  const redirectObj = {
+    customer: '/customer/products',
+    seller: '/seller/orders',
+    administrator: '/admin/manage',
+  };
 
   const validFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -26,17 +32,22 @@ export default function Login() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    axios.post('http://localhost:3001/login', input)
+    axios.post('http://localhost:3001/login/', input)
       .then((response) => response.data)
       .then((data) => {
         const stringfyData = JSON.stringify(data);
         localStorage.setItem('user', stringfyData);
-        localStorage
-          .setItem('cart', []);
-        navigate('/customer/products');
+        navigate(redirectObj[data.role]);
       })
       .catch(() => setInvalidLogin(true));
   };
+
+  useEffect(() => {
+    const isLogged = JSON.parse(localStorage.getItem('user'))?.token;
+    if (isLogged) {
+      navigate('/customer/products');
+    }
+  });
 
   return (
     <div>

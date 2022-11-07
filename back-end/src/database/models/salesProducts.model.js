@@ -18,19 +18,30 @@ const SalesProductsModel = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
+
   SalesProducts.associate = (models) => {
     models.Sale.belongsToMany(models.Product, {
-      as: "sales",
+      as: "products",
       through: SalesProducts,
       foreignKey: "saleId",
       otherKey: "productId",
     });
 
     models.Product.belongsToMany(models.Sale, {
-      as: "products",
+      as: "sales",
       through: SalesProducts,
       foreignKey: "productId",
       otherKey: "saleId",
+    });
+
+    SalesProducts.belongsTo(models.Product, {
+      as: "products",
+      foreignKey: "productId",
+      onDelete: "CASCADE",
+    });
+
+    models.Product.hasMany(SalesProducts, {
+      as: "saleProducts",
     });
   };
 

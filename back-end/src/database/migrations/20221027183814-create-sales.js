@@ -11,19 +11,17 @@ module.exports = {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.STRING,
-        unique: true,
+        type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
       seller_id: {
         allowNull: false,
-        type: Sequelize.STRING,
-        unique: true,
+        type: Sequelize.INTEGER,
         onDelete: 'CASCADE'
       },
       total_price: {
         allowNull: false,
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10, 2),
       },
       delivery_address: {
         allowNull: false,

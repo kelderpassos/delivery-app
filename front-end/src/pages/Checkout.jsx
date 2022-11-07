@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CheckoutTable from '../components/CheckoutTable';
 import NavBar from '../components/NavBar';
 
@@ -7,32 +8,81 @@ export default function Checkout() {
   const [allProducts, setAllProducts] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0.00);
   const [allSellers, setAllSellers] = useState([]);
-  const [input, setInput] = useState({ seller: '', address: '', number: '' });
+  const [input, setInput] = useState(
+    { sellerId: '', deliveryAddress: '', deliveryNumber: '' },
+  );
+  const navigate = useNavigate();
 
   const calculateTotal = () => {
-    const total = allProducts.reduce((acc, crr) => acc + crr.total, 0);
-    setOrderTotal(total.toFixed(2));
+    const total = allProducts.reduce((acc, crr) => acc + Number(crr.totalPrice), 0);
+    setOrderTotal(total.toFixed(2).replace('.', ','));
+  };
+
+  const validFields = () => {
+    const FIVE = 5;
+    const validAddress = input.deliveryAddress.length > FIVE;
+    const validNumber = input.deliveryNumber.length > 0;
+    const validSeller = input.sellerId.length > 0;
+    const validProducts = allProducts.length > 0;
+
+    return validAddress && validNumber && validSeller && validProducts;
   };
 
   useEffect(() => {
-    calculateTotal();
-  });
+    axios.get('http://localhost:3001/sellers')
+      .then((result) => result.data)
+      .then((data) => setAllSellers(data))
+      .catch((err) => {
+        setAllSellers([]);
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
-    const getItems = localStorage.getItem('items');
+    const getItems = localStorage.getItem('carrinho');
     const orderItems = JSON.parse(getItems);
     setAllProducts(orderItems || []);
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/sellers')
-      .then((result) => result.data)
-      .then((data) => setAllSellers(data || []))
-      .catch((err) => console.log(err));
-  }, []);
+    console.log(input);
+    calculateTotal();
+  });
 
   const handleInput = ({ target }) => {
     setInput({ ...input, [target.name]: target.value });
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const { name, token } = JSON.parse(localStorage.getItem('user'));
+    const { sellerId, deliveryAddress, deliveryNumber } = input;
+
+    const order = {
+      name,
+      sellerId: Number(sellerId),
+      totalPrice: Number(orderTotal.replace(',', '.')),
+      deliveryAddress,
+      deliveryNumber: Number(deliveryNumber),
+      products: allProducts.map(({ id, counter }) => (
+        { productId: id, quantity: counter }
+      )),
+    };
+
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+
+    axios.post('http://localhost:3001/sales', order, config)
+      .then((result) => result.data)
+      .then((data) => {
+        const { newOrderId } = data;
+        localStorage.removeItem('carrinho');
+        navigate(`/customer/orders/${newOrderId}`);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -40,7 +90,12 @@ export default function Checkout() {
       <NavBar />
       <h3>Finish Order</h3>
       <div>
-        <CheckoutTable items={ allProducts } />
+        {allProducts.length > 0
+          && <CheckoutTable
+            key="1"
+            items={ allProducts }
+            setAllItems={ setAllProducts }
+          />}
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
@@ -48,23 +103,23 @@ export default function Checkout() {
         </p>
       </div>
       <h3>Details and Delivery Address</h3>
-      <div>
+      <form onSubmit={ handleSubmit }>
         <label htmlFor="sellers">
           Seller
           <select
-            name="seller"
+            name="sellerId"
             id="sellers"
             onChange={ handleInput }
             data-testid="customer_checkout__select-seller"
           >
-            {!input.seller.length && (
+            {!input.sellerId.length && (
               <option>
                 Chose a seller
               </option>
             )}
             {
-              allSellers.map(({ name }, id) => (
-                <option key={ id }>
+              allSellers.map(({ name, id }) => (
+                <option key={ id } value={ id }>
                   { name }
                 </option>
               ))
@@ -75,7 +130,7 @@ export default function Checkout() {
           Address
           <input
             type="text"
-            name="address"
+            name="deliveryAddress"
             id="address"
             onChange={ handleInput }
             data-testid="customer_checkout__input-address"
@@ -85,13 +140,22 @@ export default function Checkout() {
           Number
           <input
             type="number"
-            name="number"
+            name="deliveryNumber"
             id="number"
             onChange={ handleInput }
             data-testid="customer_checkout__input-address-number"
           />
         </label>
-      </div>
+        <button
+          type="submit"
+          onSubmit={ handleSubmit }
+          disabled={ !validFields() }
+          data-testid="customer_checkout__button-submit-order"
+          onClick={ handleSubmit }
+        >
+          FINISH ORDER
+        </button>
+      </form>
     </div>
   );
 }

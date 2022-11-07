@@ -6,6 +6,8 @@ const CustomError = require('../helpers/CustomError');
 
 const { User } = models;
 
+const findByName = async ({ name }) => User.findOne({ where: { name } });
+
 const login = async ({ email, password }) => {
   const result = await User.findOne({
     where: { email },
@@ -17,11 +19,11 @@ const login = async ({ email, password }) => {
 
   if (result.password !== hashPassword) throw new CustomError(400, 'Invalid password');
 
-  const token = jwt.create({ email, hashPassword });
+  const token = jwt.create({ id: result.id, email, hashPassword });
 
-  const { name, role } = result;
+  const { name, role, id } = result;
 
-  return { name, email, role, token };
+  return { id, name, email, role, token };
 };
 
 const customerRegister = async ({ name, email, password }, role = 'customer') => {
@@ -36,21 +38,21 @@ const customerRegister = async ({ name, email, password }, role = 'customer') =>
 
   const hashPassword = md5(password);
 
-  await User.create({
+  const newUser = await User.create({
     name,
     email,
     password: hashPassword,
     role,
   });
 
-  const token = jwt.create({ email, hashPassword });
+  const token = jwt.create({ id: newUser.id, email, hashPassword });
 
   return { name, email, role, token };
 };
 
 const findSellersNames = async () => User.findAll({
   where: { role: 'seller' },
-  attributes: ['name'],
+  attributes: ['name', 'id'],
 });
 
-module.exports = { login, customerRegister, findSellersNames };
+module.exports = { login, customerRegister, findSellersNames, findByName };
