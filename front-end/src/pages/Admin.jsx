@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 
 export default function Admin() {
@@ -8,6 +8,12 @@ export default function Admin() {
     password: '',
     role: 'customer' });
   const [invalidRegistered, setInvalidRegistered] = useState(false);
+  const [userToken, setUserToken] = useState('');
+
+  useEffect(() => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    setUserToken(token);
+  }, [userToken]);
 
   const validateFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -26,12 +32,7 @@ export default function Admin() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    axios.post('http://localhost:3001/register', input)
-      .then((response) => response.data)
-      .then((data) => {
-        const stringfyData = JSON.stringify(data);
-        localStorage.setItem('user', stringfyData);
-      })
+    axios.post('http://localhost:3001/admin/register', input, { headers: { authorization: token } })
       .catch(() => setInvalidRegistered(true));
   };
 
