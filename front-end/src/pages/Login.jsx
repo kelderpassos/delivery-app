@@ -43,9 +43,9 @@ export default function Login() {
   };
 
   useEffect(() => {
-    const isLogged = JSON.parse(localStorage.getItem('user'))?.token;
-    if (isLogged) {
-      navigate('/customer/products');
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    if (token) {
+      navigate(redirectObj[role]);
     }
   });
 
