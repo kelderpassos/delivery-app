@@ -6,7 +6,7 @@ export default function Admin() {
   const [input, setInput] = useState({ name: '',
     email: '',
     password: '',
-    role: 'customer' });
+    role: '' });
   const [invalidRegistered, setInvalidRegistered] = useState(false);
   const [userToken, setUserToken] = useState('');
 
@@ -21,7 +21,8 @@ export default function Admin() {
     const FIVE = 5;
     const ELEVEN = 11;
 
-    return validEmail && input.password.length > FIVE && input.name.length > ELEVEN;
+    return validEmail && input.password.length > FIVE && input.name.length > ELEVEN
+     && input.role !== '';
   };
 
   const handleInput = ({ target }) => {
@@ -32,7 +33,7 @@ export default function Admin() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    axios.post('http://localhost:3001/admin/register', input, { headers: { authorization: token } })
+    axios.post('http://localhost:3001/admin/register', input, { headers: { authorization: userToken } })
       .catch(() => setInvalidRegistered(true));
   };
 
@@ -71,10 +72,11 @@ export default function Admin() {
           </label>
           <select
             name="role"
-            defaultValue="customer"
+            defaultValue=""
             onChange={ handleInput }
             data-testid="admin_manage__select-role"
           >
+            <option value=""> </option>
             <option value="customer">customer</option>
             <option value="seller">seller</option>
           </select>
