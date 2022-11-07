@@ -19,15 +19,14 @@ const adminRegister = async (req, res) => {
   const token = req.headers.authorization;
   const validation = jwt.validate(token);
 
-  if(validation.role === 'administrator') {
-
+  if (validation.role === 'administrator') {
     const { name, email, password, role } = req.body;
     const newUser = await userService.customerRegister({ name, email, password, role });
     
     return res.status(201).json(newUser);
   }
 
-  res.status(401).json({ message: 'Unauthorized' })
+  res.status(401).json({ message: 'Unauthorized' });
 };
 
 const findSellersNames = async (_req, res) => {
