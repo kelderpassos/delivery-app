@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
+import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import Products from './pages/Products';
 import Register from './pages/Register';
-import OrderDetails from './pages/OrderDetails';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrderDetails from './pages/SellerOrderDetails';
 
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/customer/orders" element={ <Orders /> } />
       <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
+      <Route exatc path="/admin/manage" element={ <Admin /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
     </Routes>
   );

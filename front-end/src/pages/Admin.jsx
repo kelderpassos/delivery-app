@@ -1,15 +1,19 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
 
-export default function Register() {
+export default function Admin() {
   const [input, setInput] = useState({ name: '',
     email: '',
     password: '',
-    role: 'customer' });
+    role: '' });
   const [invalidRegistered, setInvalidRegistered] = useState(false);
+  const [userToken, setUserToken] = useState('');
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    setUserToken(token);
+  }, [userToken]);
 
   const validateFields = () => {
     const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -17,28 +21,25 @@ export default function Register() {
     const FIVE = 5;
     const ELEVEN = 11;
 
-    return validEmail && input.password.length > FIVE && input.name.length > ELEVEN;
+    return validEmail && input.password.length > FIVE && input.name.length > ELEVEN
+     && input.role !== '';
   };
 
   const handleInput = ({ target }) => {
     setInput({ ...input, [target.name]: target.value });
+    console.log(input);
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    axios.post('http://localhost:3001/register', input)
-      .then((response) => response.data)
-      .then((data) => {
-        const stringfyData = JSON.stringify(data);
-        localStorage.setItem('user', stringfyData);
-        navigate('/customer/products');
-      })
+    axios.post('http://localhost:3001/admin/register', input, { headers: { authorization: userToken } })
       .catch(() => setInvalidRegistered(true));
   };
 
   return (
     <div>
+      <NavBar />
       <section>
         <h4>Register</h4>
         <form onSubmit={ handleSubmit }>
@@ -48,7 +49,7 @@ export default function Register() {
               name="name"
               type="text"
               onChange={ handleInput }
-              data-testid="common_register__input-name"
+              data-testid="admin_manage__input-name"
             />
           </label>
           <label htmlFor="email">
@@ -57,7 +58,7 @@ export default function Register() {
               name="email"
               type="text"
               onChange={ handleInput }
-              data-testid="common_register__input-email"
+              data-testid="admin_manage__input-email"
             />
           </label>
           <label htmlFor="password">
@@ -66,19 +67,29 @@ export default function Register() {
               name="password"
               type="password"
               onChange={ handleInput }
-              data-testid="common_register__input-password"
+              data-testid="admin_manage__input-password"
             />
           </label>
+          <select
+            name="role"
+            defaultValue=""
+            onChange={ handleInput }
+            data-testid="admin_manage__select-role"
+          >
+            <option value=""> </option>
+            <option value="customer">customer</option>
+            <option value="seller">seller</option>
+          </select>
           <button
             type="submit"
             name="login"
             disabled={ !validateFields() }
-            data-testid="common_register__button-register"
+            data-testid="admin_manage__button-register"
           >
             Register
           </button>
           {invalidRegistered && (
-            <p data-testid="common_register__element-invalid_register">
+            <p data-testid="admin_manage__element-invalid-register">
               Already registered
             </p>
           )}
