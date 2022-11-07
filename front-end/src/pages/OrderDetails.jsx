@@ -10,6 +10,7 @@ export default function OrderDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [products, setProducts] = useState([]);
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:3001/sales/${id}`)
@@ -17,6 +18,7 @@ export default function OrderDetails() {
       .then((data) => {
         setOrder(data);
         setProducts(data.products);
+        setStatus(data.status);
       })
       .catch((err) => {
         setOrder(null);
@@ -33,10 +35,17 @@ export default function OrderDetails() {
     return `${day}/${month}/${year}`;
   };
 
-  const seller = order ? order.seller : null;
+  const updateStatus = ({ target }) => {
+    const { value } = target;
+    axios.patch(
+      `http://localhost:3001/sales/${id}`,
+      { status: value },
+    ).then(() => setStatus(value))
+      .catch((err) => console.log(err));
+  };
 
+  const seller = order ? order.seller : null;
   const orderId = order ? order.id : '0000';
-  const status = order ? order.status : '';
   const data = order ? formatDate(order.saleDate) : '';
   const total = order ? order.totalPrice.replace('.', ',') : '00,00';
 
@@ -62,6 +71,8 @@ export default function OrderDetails() {
           data-testid="customer_order_details__button-delivery-check"
           type="button"
           disabled={ status !== 'Em Trânsito' }
+          value="Entregue"
+          onClick={ updateStatus }
         >
           Delivered
         </button>
