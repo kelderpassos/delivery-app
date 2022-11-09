@@ -81,7 +81,7 @@ describe('User Service', () => {
       }
 
       expect(error.message).to.be.equal('Name or email already registered');
-      expect(error.status).to.be.equal(409);
+      expect(error?.status).to.be.equal(409);
     });
   });
 
