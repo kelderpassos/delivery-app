@@ -3,8 +3,6 @@ const chai = require('chai');
 const models = require('../../../database/models');
 const userService = require('../../../services/user.service');
 const { mockUser, mockLogin, mockNewUser, mockCreate, mockAllSeller } = require('../../mocks/user');
-const CustomError = require('../../../helpers/CustomError');
-
 
 const { User } = models;
 const { expect } = chai;
