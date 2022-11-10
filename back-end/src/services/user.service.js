@@ -20,7 +20,6 @@ const login = async ({ email, password }) => {
   if (result.password !== hashPassword) throw new CustomError(400, 'Invalid password');
 
   const token = jwt.create({ id: result.id, email, role: result.role });
-  console.log(token);
   const { name, role, id } = result;
 
   return { id, name, email, role, token };
