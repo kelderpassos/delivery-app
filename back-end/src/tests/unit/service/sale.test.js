@@ -9,7 +9,7 @@ const { mockSale, mockSaleRegistered } = require('../../mocks/sale');
 const { Sale } = models;
 const { expect } = chai;
 
-describe.only('Sales Service', () => {
+describe('Sales Service', () => {
   before(() => {
     sinon.stub(userService, 'findByName').resolves({ id: 2 });
     sinon.stub(Sale, 'create').resolves({ id: 10 });
@@ -30,7 +30,7 @@ describe.only('Sales Service', () => {
     it('With success', async () => {
       const result = await saleService.create(mockSale);
 
-      expect(result).to.be.deep.equal(10);
+      expect(result).to.be.equal(10);
     });
   });
 
