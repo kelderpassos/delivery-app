@@ -2,7 +2,8 @@ const sinon = require('sinon');
 const chai = require('chai');
 const userService = require('../../../services/user.service');
 const userController = require('../../../controller/user.controller');
-const { mockLogin, mockCreate, adminToken, normalToken, mockAllSeller, invalidToken } = require('../../mocks/user');
+const { mockLogin, mockCreate, mockAllSeller } = require('../../mocks/user');
+const { adminToken, normalToken, invalidToken } = require('../../mocks/token');
 
 const { expect } = chai;
 
