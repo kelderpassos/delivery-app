@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function OrderCard({ id, status, price, date }) {
+export default function OrderCard({ id, status, price, date, numb }) {
   const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   const year = date.slice(NUMBERS[0], NUMBERS[4]);
   const month = date.slice(NUMBERS[5], NUMBERS[7]);
@@ -10,32 +10,33 @@ export default function OrderCard({ id, status, price, date }) {
 
   return (
     <div>
-      <section>
-        <Link to={ `/customer/orders/${id}` }>
+      <Link to={ `/customer/orders/${id}` }>
+        <section>
           <div
             data-testid={ `customer_orders__element-order-id-${id}` }
           >
-            {`Pedido: ${id}`}
+            {`Pedido: ${numb}`}
           </div>
-        </Link>
-        <p
-          data-testid={ `customer_orders__element-delivery-status-${id}` }
-        >
-          {`Status: ${status}`}
-        </p>
-      </section>
-      <section>
-        <p
-          data-testid={ `customer_orders__element-card-price-${id}` }
-        >
-          {price.replace('.', ',')}
-        </p>
-        <p
-          data-testid={ `customer_orders__element-order-date-${id}` }
-        >
-          {`${day}/${month}/${year}`}
-        </p>
-      </section>
+
+          <p
+            data-testid={ `customer_orders__element-delivery-status-${id}` }
+          >
+            {`Status: ${status}`}
+          </p>
+        </section>
+        <section>
+          <p
+            data-testid={ `customer_orders__element-card-price-${id}` }
+          >
+            {price.replace('.', ',')}
+          </p>
+          <p
+            data-testid={ `customer_orders__element-order-date-${id}` }
+          >
+            {`${day}/${month}/${year}`}
+          </p>
+        </section>
+      </Link>
     </div>
   );
 }
@@ -45,4 +46,5 @@ OrderCard.propTypes = {
   status: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  numb: PropTypes.number.isRequired,
 };

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import DetailsTable from '../components/DetailsTable';
+import SellerDetailsTable from '../components/SellerDetailsTable';
 import NavBar from '../components/NavBar';
-
-const statusId = 'customer_order_details__element-order-details-label-delivery-status';
 
 export default function OrderDetails() {
   const { id } = useParams();
@@ -44,7 +42,6 @@ export default function OrderDetails() {
       .catch((err) => console.log(err));
   };
 
-  const seller = order ? order.seller : null;
   const orderId = order ? order.id : '0000';
   const data = order ? formatDate(order.saleDate) : '';
   const total = order ? order.totalPrice.replace('.', ',') : '00,00';
@@ -53,39 +50,47 @@ export default function OrderDetails() {
     <div>
       <NavBar />
       <div>
-        <p data-testid="customer_order_details__element-order-details-label-order-id">
+        <p
+          data-testid="seller_order_details__element-order-details-label-order-id"
+        >
           { `Order ${orderId}` }
         </p>
-        <p data-testid="customer_order_details__element-order-details-label-seller-name">
-          { `${seller?.name}` }
-        </p>
-        <p data-testid="customer_order_details__element-order-details-label-order-date">
+        <p data-testid="seller_order_details__element-order-details-label-order-date">
           { `${data}` }
         </p>
         <p
-          data-testid={ statusId }
+          data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
           { status }
         </p>
         <button
-          data-testid="customer_order_details__button-delivery-check"
+          data-testid="seller_order_details__button-preparing-check"
           type="button"
-          disabled={ status !== 'Em Trânsito' }
-          value="Entregue"
+          disabled={ status !== 'Pendente' }
+          value="Preparando"
           onClick={ updateStatus }
         >
-          Delivered
+          Prepare Order
+        </button>
+        <button
+          data-testid="seller_order_details__button-dispatch-check"
+          type="button"
+          disabled={ status !== 'Preparando' }
+          value="Em Trânsito"
+          onClick={ updateStatus }
+        >
+          Out For Delivery
         </button>
       </div>
       <h3>Detail Order</h3>
       <div>
         {products.length > 0 && (
-          <DetailsTable
+          <SellerDetailsTable
             allProducts={ products }
           />
         )}
         <p
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid="seller_order_details__element-order-total-price"
         >
           { `Total: R$ ${total}` }
         </p>

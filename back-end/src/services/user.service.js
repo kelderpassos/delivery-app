@@ -19,8 +19,7 @@ const login = async ({ email, password }) => {
 
   if (result.password !== hashPassword) throw new CustomError(400, 'Invalid password');
 
-  const token = jwt.create({ id: result.id, email, hashPassword });
-
+  const token = jwt.create({ id: result.id, email, role: result.role });
   const { name, role, id } = result;
 
   return { id, name, email, role, token };
@@ -45,7 +44,7 @@ const customerRegister = async ({ name, email, password, role }) => {
     role,
   });
 
-  const token = jwt.create({ id: newUser.id, email, hashPassword });
+  const token = jwt.create({ id: newUser.id, email, role });
 
   return { name, email, role, token };
 };

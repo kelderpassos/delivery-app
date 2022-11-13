@@ -13,7 +13,7 @@ export default function SellerOrderCard({
   return (
     <Link to={ `/seller/orders/${id}` }>
       <div>
-        <p data-testid={ `seller_orders__element-order-id-${id}` }>{ num }</p>
+        <p data-testid={ `seller_orders__element-order-id-${id}` }>{ num + 1 }</p>
       </div>
       <div>
         <p data-testid={ `seller_orders__element-delivery-status-${id}` }>{ status }</p>
