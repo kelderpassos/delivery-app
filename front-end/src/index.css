@@ -6,7 +6,8 @@
 
 :root {
   --white: #fff;
-  --gray--900: #1c1c1c;
+  --red: red;
+  --gray-900: #1c1c1c;
 }
 
 body {
