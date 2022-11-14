@@ -1,4 +1,4 @@
-.loginContainer {
+.registerContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,11 +8,11 @@
   height: 100vh;
 }
 
-.loginContainer h2{
-  margin-bottom: 5rem;
+.registerContainer h2{
+  margin-bottom: 3rem;
 }
 
-.loginContainer form {
+.registerContainer form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,20 +25,20 @@
   
 }
 
-.loginContainer form label {
+.registerContainer form label {
   margin-bottom: 0.5rem;
 }
 
-.loginContainer input {
+.registerContainer input {
   height: 2rem;
   width: 24rem;
   padding-left: 10px;
   margin-top: 0.5rem;
-  
+
   outline: none;
 }
 
-.loginContainer button {
+.registerContainer button {
   border: none;
   border-radius: 2px;
 
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-.loginContainer form > h4 {
+.registerContainer form > h4 {
   color: var(--red);
   letter-spacing: 1px;
   font-family: 'Roboto', sans-serif;
@@ -61,6 +61,6 @@
 }
 
 
-.loginContainer {
+.registerContainer {
   
 }

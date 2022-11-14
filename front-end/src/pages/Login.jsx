@@ -86,7 +86,7 @@ export default function Login() {
           data-testid="common_login__button-register"
           onClick={ redirectToRegister }
         >
-          Inscrição
+          Cadastro
         </button>
         {invalidLogin && (
           <h4 data-testid="common_login__element-invalid-email">Dados inválidos</h4>

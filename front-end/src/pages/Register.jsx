@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
+import styles from './CSS/Register.module.css';
 
 export default function Register() {
   const [input, setInput] = useState({ name: '',
@@ -38,52 +40,51 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <section>
-        <h4>Register</h4>
-        <form onSubmit={ handleSubmit }>
-          <label htmlFor="name">
-            Name
-            <input
-              name="name"
-              type="text"
-              onChange={ handleInput }
-              data-testid="common_register__input-name"
-            />
-          </label>
-          <label htmlFor="email">
-            E-mail
-            <input
-              name="email"
-              type="text"
-              onChange={ handleInput }
-              data-testid="common_register__input-email"
-            />
-          </label>
-          <label htmlFor="password">
-            Password
-            <input
-              name="password"
-              type="password"
-              onChange={ handleInput }
-              data-testid="common_register__input-password"
-            />
-          </label>
-          <button
-            type="submit"
-            name="login"
-            disabled={ !validateFields() }
-            data-testid="common_register__button-register"
-          >
-            Register
-          </button>
-          {invalidRegistered && (
-            <p data-testid="common_register__element-invalid_register">
-              Already registered
-            </p>
-          )}
-        </form>
-      </section>
+    <div className={ styles.registerContainer }>
+      <h2>Cadastro</h2>
+      <form onSubmit={ handleSubmit }>
+        <label htmlFor="name">
+          Nome
+          <input
+            name="name"
+            type="text"
+            onChange={ handleInput }
+            data-testid="common_register__input-name"
+          />
+        </label>
+        <label htmlFor="email">
+          E-mail
+          <input
+            name="email"
+            type="text"
+            onChange={ handleInput }
+            data-testid="common_register__input-email"
+          />
+        </label>
+        <label htmlFor="password">
+          Senha
+          <input
+            name="password"
+            type="password"
+            onChange={ handleInput }
+            data-testid="common_register__input-password"
+          />
+        </label>
+        <button
+          type="submit"
+          name="login"
+          disabled={ !validateFields() }
+          data-testid="common_register__button-register"
+        >
+          Finalizar cadastro
+        </button>
+        {invalidRegistered && (
+          <h4 data-testid="common_register__element-invalid_register">
+            Usuário já registrado
+          </h4>
+        )}
+      </form>
+      <Footer />
     </div>
   );
 }
