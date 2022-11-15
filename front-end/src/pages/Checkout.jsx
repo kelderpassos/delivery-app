@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckoutTable from '../components/CheckoutTable';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
+import styles from './CSS/Checkout.module.css';
 
 export default function Checkout() {
   const [allProducts, setAllProducts] = useState([]);
@@ -45,7 +47,6 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
-    console.log(input);
     calculateTotal();
   });
 
@@ -88,74 +89,77 @@ export default function Checkout() {
   return (
     <div>
       <NavBar />
-      <h3>Finish Order</h3>
-      <div>
+      <h2 className={ styles.title }>Pagamento</h2>
+      <div className={ styles.tableContainer }>
         {allProducts.length > 0
           && <CheckoutTable
             key="1"
             items={ allProducts }
             setAllItems={ setAllProducts }
           />}
-        <p
+        <h3
           data-testid="customer_checkout__element-order-total-price"
         >
           { `Total: R$ ${orderTotal}` }
-        </p>
+        </h3>
       </div>
-      <h3>Details and Delivery Address</h3>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="sellers">
-          Seller
-          <select
-            name="sellerId"
-            id="sellers"
-            onChange={ handleInput }
-            data-testid="customer_checkout__select-seller"
-          >
-            {!input.sellerId.length && (
-              <option>
-                Chose a seller
-              </option>
-            )}
-            {
-              allSellers.map(({ name, id }) => (
-                <option key={ id } value={ id }>
-                  { name }
+      <h2>Detalhes</h2>
+      <div className={ styles.container }>
+        <form className={ styles.detailsForm } onSubmit={ handleSubmit }>
+          <label htmlFor="sellers">
+            Seller
+            <select
+              name="sellerId"
+              id="sellers"
+              onChange={ handleInput }
+              data-testid="customer_checkout__select-seller"
+            >
+              {!input.sellerId.length && (
+                <option>
+                  Escolha um vendedor
                 </option>
-              ))
-            }
-          </select>
-        </label>
-        <label htmlFor="address">
-          Address
-          <input
-            type="text"
-            name="deliveryAddress"
-            id="address"
-            onChange={ handleInput }
-            data-testid="customer_checkout__input-address"
-          />
-        </label>
-        <label htmlFor="number">
-          Number
-          <input
-            type="number"
-            name="deliveryNumber"
-            id="number"
-            onChange={ handleInput }
-            data-testid="customer_checkout__input-address-number"
-          />
-        </label>
-        <button
-          type="submit"
-          onSubmit={ handleSubmit }
-          disabled={ !validFields() }
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ handleSubmit }
-        >
-          FINISH ORDER
-        </button>
-      </form>
+              )}
+              {
+                allSellers.map(({ name, id }) => (
+                  <option key={ id } value={ id }>
+                    { name }
+                  </option>
+                ))
+              }
+            </select>
+          </label>
+          <label htmlFor="address">
+            Endereço
+            <input
+              type="text"
+              name="deliveryAddress"
+              id="address"
+              onChange={ handleInput }
+              data-testid="customer_checkout__input-address"
+            />
+          </label>
+          <label htmlFor="number">
+            Número
+            <input
+              type="number"
+              name="deliveryNumber"
+              id="number"
+              onChange={ handleInput }
+              data-testid="customer_checkout__input-address-number"
+            />
+          </label>
+          <button
+            type="submit"
+            onSubmit={ handleSubmit }
+            disabled={ !validFields() }
+            data-testid="customer_checkout__button-submit-order"
+            onClick={ handleSubmit }
+          >
+            Finalizar compra
+          </button>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   margin-top: 3rem;
   padding: 6rem;
   width: 35rem;
@@ -40,7 +41,7 @@
 
 .loginContainer button {
   border: none;
-  border-radius: 2px;
+  border-radius: 6px;
 
   height: 2rem;
   width: 24rem;
@@ -58,9 +59,4 @@
   font-family: 'Roboto', sans-serif;
 
   margin-top: 1rem;
-}
-
-
-.loginContainer {
-  
 }

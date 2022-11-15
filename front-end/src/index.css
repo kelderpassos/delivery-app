@@ -8,6 +8,8 @@
   --white: #fff;
   --red: red;
   --gray-900: #1c1c1c;
+  --gray-700: #404040;
+  --golden-600: #faae03;
 }
 
 body {
@@ -18,10 +20,11 @@ body {
   height: 100%;
 }
 
-body, input, textarea, button {
+body, input, textarea, button, select {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 1rem;
+  text-align: center;
 }
 
 code {

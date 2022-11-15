@@ -1,0 +1,30 @@
+.productsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 60vh;
+}
+
+.slider {
+  margin-top: 5rem;
+  width: 60rem;
+}
+
+
+
+.cartButton{
+  border: none;
+  border-radius: 10px;
+
+  height: 3rem;
+  width: 20rem;
+
+  background-color: var(--gray-900);
+  color: var(--white);
+
+  cursor: pointer;
+
+  font-weight: bold;
+  letter-spacing: 1px;
+}

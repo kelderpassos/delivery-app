@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { Chats, User, ShoppingCart } from 'phosphor-react';
+import { SignIn, User, ShoppingCart } from 'phosphor-react';
 import Slider from 'react-slick';
-import image from '../assets/eb6.png';
+import image from '../assets/ebx1.png';
 import ProductCards from '../components/ProductCards';
 import Footer from '../components/Footer';
 import styles from './CSS/Homepage.module.css';
@@ -38,11 +38,11 @@ function Homepage() {
     <div>
       <header className={ styles.header }>
         <div>
-          <img src={ image } alt="" />
+          <img src={ image } alt="expresso logo" />
         </div>
         <section className={ styles.navigationContainer }>
           <div>
-            <Chats size={ 32 } />
+            <SignIn size={ 32 } />
             <NavLink to="/login" className={ styles.navigation }>Faça login</NavLink>
           </div>
           <div>

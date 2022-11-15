@@ -65,7 +65,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
       </section>
 
       {path === '/' ? '' : (
-        <section>
+        <section className={ styles.buttonContainer }>
           <button
             name="sub"
             type="button"
@@ -75,7 +75,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
             -
           </button>
           <input
-            type="number"
+            type="text"
             value={ counter }
             onChange={ handleChange }
             data-testid={ `customer_products__input-card-quantity-${id}` }

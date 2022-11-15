@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './CSS/CheckoutTable.module.css';
 
 export default function CheckoutTable({ items, setAllItems }) {
   const handleRemove = ({ target }) => {
     const { value } = target;
     const newProducts = items.filter(({ id }) => id !== Number(value));
-    console.log(newProducts);
     localStorage.setItem('carrinho', JSON.stringify(newProducts));
     setAllItems(newProducts);
   };
 
   return (
-    <table>
+    <table className={ styles.table }>
       <thead>
         <tr>
           <th>Item</th>
@@ -22,7 +22,7 @@ export default function CheckoutTable({ items, setAllItems }) {
           <th>Remove Item</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className={ styles.chato }>
         {items.map((product, ind) => (
           <tr key={ ind }>
             <td
@@ -57,7 +57,7 @@ export default function CheckoutTable({ items, setAllItems }) {
                 onClick={ handleRemove }
                 data-testid={ `customer_checkout__element-order-table-remove-${ind}` }
               >
-                Remove
+                Remover
               </button>
             </td>
           </tr>
