@@ -1,0 +1,27 @@
+.orderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderContainer div{
+  margin: 1rem 0;
+  /* border: solid red 1px; */
+  width: 30rem;
+
+  background-color: var(--golden-600);
+  color: var(--gray-900);
+  border: none;
+  border-radius: 8px;
+
+}
+
+.orderContainer section {
+  padding: 0.5rem 0;
+}
+
+.orderContainer section h4 {
+  margin-bottom: 0.5rem;
+}
+

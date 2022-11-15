@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './CSS/DetailsTable.module.css';
 
 export default function DetailsTable({ allProducts }) {
   return (
-    <table>
+    <table className={ styles.container }>
       <thead>
         <tr>
           <th>Item</th>
-          <th>Description</th>
-          <th>Quantity</th>
-          <th>Price</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
           <th>Subtotal</th>
         </tr>
       </thead>

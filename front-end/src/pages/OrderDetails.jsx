@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DetailsTable from '../components/DetailsTable';
 import NavBar from '../components/NavBar';
+import styles from './CSS/OrderDetails.module.css';
 
 const statusId = 'customer_order_details__element-order-details-label-delivery-status';
 
@@ -52,44 +53,46 @@ export default function OrderDetails() {
   return (
     <div>
       <NavBar />
-      <div>
-        <p data-testid="customer_order_details__element-order-details-label-order-id">
-          { `Order ${orderId}` }
-        </p>
-        <p data-testid="customer_order_details__element-order-details-label-seller-name">
-          { `${seller?.name}` }
-        </p>
-        <p data-testid="customer_order_details__element-order-details-label-order-date">
-          { `${data}` }
-        </p>
-        <p
-          data-testid={ statusId }
-        >
-          { status }
-        </p>
-        <button
-          data-testid="customer_order_details__button-delivery-check"
-          type="button"
-          disabled={ status !== 'Em Trânsito' }
-          value="Entregue"
-          onClick={ updateStatus }
-        >
-          Delivered
-        </button>
-      </div>
-      <h3>Detail Order</h3>
-      <div>
-        {products.length > 0 && (
-          <DetailsTable
-            allProducts={ products }
-          />
-        )}
-        <p
-          data-testid="customer_order_details__element-order-total-price"
-        >
-          { `Total: R$ ${total}` }
-        </p>
-      </div>
+      <main className={ styles.mainContainer }>
+        <div className={ styles.statusContainer }>
+          <h4 data-testid="customer_order_details__element-order-details-label-order-id">
+            { `Pedido ${orderId}` }
+          </h4>
+          <h4>
+            { `${seller?.name}` }
+          </h4>
+          <h4>
+            { `${data}` }
+          </h4>
+          <h4
+            data-testid={ statusId }
+          >
+            { status }
+          </h4>
+          <button
+            data-testid="customer_order_details__button-delivery-check"
+            type="button"
+            disabled={ status !== 'Em Trânsito' }
+            value="Entregue"
+            onClick={ updateStatus }
+          >
+            Entregue
+          </button>
+        </div>
+        <h3>Detalhes do Pedido</h3>
+        <div className={ styles.tableContainer }>
+          {products.length > 0 && (
+            <DetailsTable
+              allProducts={ products }
+            />
+          )}
+          <h4
+            className={ styles.total }
+          >
+            { `Total: R$ ${total}` }
+          </h4>
+        </div>
+      </main>
     </div>
   );
 }

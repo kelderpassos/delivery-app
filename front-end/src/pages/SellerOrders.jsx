@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import SellerOrderCard from '../components/SellerOrderCard';
+import styles from './CSS/SellerOrders.module.css';
 
 export default function SellerOrders() {
   const [orders, setOrders] = useState([]);
@@ -27,7 +28,7 @@ export default function SellerOrders() {
   return (
     <div>
       <NavBar />
-      <section>
+      <section className={ styles.orderContainer }>
         {orders.length
           ? (
             orders.map((order, index) => (
@@ -43,7 +44,7 @@ export default function SellerOrders() {
               />
             ))
           ) : (
-            <h2>No orders yet</h2>
+            <h2>Não há pedidos feitos</h2>
           )}
       </section>
     </div>

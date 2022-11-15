@@ -12,7 +12,7 @@ export default function Login() {
   const redirectObj = {
     customer: '/customer/products',
     seller: '/seller/orders',
-    administrator: '/admin/manage',
+    administrator: '/admin/manager',
   };
 
   const validFields = () => {

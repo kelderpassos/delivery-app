@@ -1,0 +1,52 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.statusContainer {
+  border: none;
+  border-radius: 8px;
+
+  background-color: var(--golden-600);
+  color: var(--gray-900);
+  padding: 1rem;
+  width: 15rem;
+  margin: 2rem 0;
+  
+}
+
+.statusContainer h4 {
+  margin-bottom: 0.2rem;
+}
+
+.statusContainer button {
+  height: 2rem;
+  width: 7rem;
+  margin-top: 1rem;
+
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  
+  background-color: var(--gray-900);
+  color: var(--white);
+}
+
+.statusContainer button:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-700);
+}
+
+.tableContainer {
+  margin-top: 1rem;
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.total {
+  margin-top: 1rem;
+}

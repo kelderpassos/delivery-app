@@ -7,9 +7,9 @@ export default function SellerDetailsTable({ allProducts }) {
       <thead>
         <tr>
           <th>Item</th>
-          <th>Description</th>
-          <th>Quantity</th>
-          <th>Price</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
           <th>Subtotal</th>
         </tr>
       </thead>

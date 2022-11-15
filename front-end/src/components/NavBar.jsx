@@ -10,7 +10,7 @@ export default function NavBar() {
   const roleObj = {
     customer: { text: 'Meus pedidos', url: '/customer/orders' },
     seller: { text: 'Pedidos', url: '/seller/orders' },
-    administrator: { text: 'Gerenciamento de usuários', url: '/admin/manage' },
+    administrator: { text: 'Gerenciamento de usuários', url: '/admin/manager' },
   };
 
   useEffect(() => () => {
@@ -54,7 +54,7 @@ export default function NavBar() {
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-link-logout"
-          to="/login"
+          to="/"
           onClick={ () => localStorage.removeItem('user') }
         >
           Sair
