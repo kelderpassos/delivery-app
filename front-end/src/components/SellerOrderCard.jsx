@@ -13,21 +13,13 @@ export default function SellerOrderCard({
   return (
     <Link to={ `/seller/orders/${id}` }>
       <div>
-        <p data-testid={ `seller_orders__element-order-id-${id}` }>{ num + 1 }</p>
-      </div>
-      <div>
-        <p data-testid={ `seller_orders__element-delivery-status-${id}` }>{ status }</p>
-        <div>
-          <p data-testid={ `seller_orders__element-order-date-${id}` }>
-            { date }
-          </p>
-          <p data-testid={ `seller_orders__element-card-price-${id}` }>
-            { `R$ ${total}` }
-          </p>
-        </div>
-        <p data-testid={ `seller_orders__element-card-address-${id}` }>
-          { `${deliveryAddress}, ${deliveryNumber}` }
-        </p>
+        <section>
+          <h4>{ num + 1 }</h4>
+          <h4>{ status }</h4>
+          <h4>{ date }</h4>
+          <h4>{ `R$ ${total}` }</h4>
+          <h4>{ `${deliveryAddress}, ${deliveryNumber}` }</h4>
+        </section>
       </div>
     </Link>
   );

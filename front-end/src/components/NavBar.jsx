@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import styles from './CSS/NavBar.module.css';
+import image from '../assets/ebx1.png';
 
 export default function NavBar() {
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
 
   const roleObj = {
-    customer: { text: 'My Orders', url: '/customer/orders' },
-    seller: { text: 'Orders', url: '/seller/orders' },
-    administrator: { text: 'User Management', url: '/admin/manage' },
+    customer: { text: 'Meus pedidos', url: '/customer/orders' },
+    seller: { text: 'Pedidos', url: '/seller/orders' },
+    administrator: { text: 'Gerenciamento de usuários', url: '/admin/manager' },
   };
 
   useEffect(() => () => {
@@ -27,14 +29,20 @@ export default function NavBar() {
   );
 
   return (
-    <header>
+    <header className={ styles.header }>
+      <img src={ image } alt="expresso logo" />
       <nav>
+        <NavLink
+          to="/"
+        >
+          Página Inicial
+        </NavLink>
         {userRole === 'customer' && (
           <NavLink
             data-testid="customer_products__element-navbar-link-products"
             to="/customer/products"
           >
-            Products
+            Produtos
           </NavLink>
         )}
         {userRole.length && defineNavLink()}
@@ -46,10 +54,10 @@ export default function NavBar() {
         </NavLink>
         <NavLink
           data-testid="customer_products__element-navbar-link-logout"
-          to="/login"
+          to="/"
           onClick={ () => localStorage.removeItem('user') }
         >
-          Logout
+          Sair
         </NavLink>
       </nav>
     </header>

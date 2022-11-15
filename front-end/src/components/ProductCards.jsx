@@ -1,10 +1,13 @@
+import { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
 import { CartDispatchContext } from '../context/CartContext';
+import styles from './CSS/ProductCards.module.css';
 
 export default function ProductCards({ id, name, urlImage, price }) {
   const [counter, setCounter] = useState(0);
   const setCart = useContext(CartDispatchContext);
+  const path = useLocation().pathname;
 
   useEffect(() => {
     setCounter(counter);
@@ -42,26 +45,27 @@ export default function ProductCards({ id, name, urlImage, price }) {
   };
 
   return (
-    <div>
-      <div key={ id }>
-        <section>
-          <p
-            data-testid={ `customer_products__element-card-price-${id}` }
-          >
-            {price.replace('.', ',')}
-          </p>
-          <img
-            src={ urlImage }
-            alt={ `${name}` }
-            data-testid={ `customer_products__img-card-bg-image-${id}` }
-          />
-          <p
-            data-testid={ `customer_products__element-card-title-${id}` }
-          >
-            {name}
-          </p>
-        </section>
-        <section>
+    <div key={ id }>
+      <section className={ styles.productContainer }>
+        <img
+          src={ urlImage }
+          alt={ `${name}` }
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+        />
+        <h3
+          data-testid={ `customer_products__element-card-title-${id}` }
+        >
+          {name}
+        </h3>
+        <h4
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {`R$${price.replace('.', ',')}`}
+        </h4>
+      </section>
+
+      {path === '/' ? '' : (
+        <section className={ styles.buttonContainer }>
           <button
             name="sub"
             type="button"
@@ -71,7 +75,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
             -
           </button>
           <input
-            type="number"
+            type="text"
             value={ counter }
             onChange={ handleChange }
             data-testid={ `customer_products__input-card-quantity-${id}` }
@@ -84,10 +88,7 @@ export default function ProductCards({ id, name, urlImage, price }) {
           >
             +
           </button>
-
-        </section>
-      </div>
-
+        </section>)}
     </div>
   );
 }

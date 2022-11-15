@@ -1,0 +1,48 @@
+.title {
+  margin: 2rem 0;
+}
+
+.adminForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 30rem;
+}
+
+.adminForm label {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.adminForm input {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.adminForm select {
+  margin-top: 1rem;
+}
+
+.adminForm button {
+  height: 2rem;
+  width: 10rem;
+  margin-top: 1rem;
+  
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  
+  background-color: var(--gray-900);
+  color: var(--white);
+}
+
+.adminForm button:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-700);
+}
+
+@media (min-width: 1500px) {
+  .adminForm {
+    padding: 0 70rem;
+  }
+}

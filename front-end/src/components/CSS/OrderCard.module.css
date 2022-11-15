@@ -1,0 +1,22 @@
+.orderContainer {  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderContainer section {
+  background-color: var(--golden-600);
+  color: var(--gray-900);
+
+  margin-top: 2rem;
+  padding: 1rem;
+  width: 20rem;
+
+  border-radius: 10px;
+  box-shadow:  4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.orderContainer h3{
+  margin-bottom: 1rem;
+}

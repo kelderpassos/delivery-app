@@ -1,0 +1,47 @@
+.mainContainer > h3 {
+
+  margin: 2rem 0;
+}
+
+.sellerOrdersContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sellerOrdersContainer h4{
+  margin: 0.5rem 0;
+}
+
+.sellerOrdersContainer section {
+
+  width: 25rem;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.sellerOrdersContainer button {
+  height: 2rem;
+  width: 10rem;
+  margin-top: 1rem;
+  
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  
+  background-color: var(--gray-900);
+  color: var(--white);
+}
+
+.sellerOrdersContainer button:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-700);
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  /* margin: 2rem 0; */
+}

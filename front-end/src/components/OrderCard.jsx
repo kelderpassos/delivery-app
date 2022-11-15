@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './CSS/OrderCard.module.css';
 
 export default function OrderCard({ id, status, price, date, numb }) {
   const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -9,32 +10,30 @@ export default function OrderCard({ id, status, price, date, numb }) {
   const day = date.slice(NUMBERS[8], NUMBERS[10]);
 
   return (
-    <div>
+    <div className={ styles.orderContainer }>
       <Link to={ `/customer/orders/${id}` }>
         <section>
-          <div
+          <h3
             data-testid={ `customer_orders__element-order-id-${id}` }
           >
             {`Pedido: ${numb}`}
-          </div>
+          </h3>
 
-          <p
+          <h3
             data-testid={ `customer_orders__element-delivery-status-${id}` }
           >
             {`Status: ${status}`}
-          </p>
-        </section>
-        <section>
-          <p
+          </h3>
+          <h3
             data-testid={ `customer_orders__element-card-price-${id}` }
           >
-            {price.replace('.', ',')}
-          </p>
-          <p
+            {`Valor: ${price.replace('.', ',')}`}
+          </h3>
+          <h3
             data-testid={ `customer_orders__element-order-date-${id}` }
           >
-            {`${day}/${month}/${year}`}
-          </p>
+            {`Data: ${day}/${month}/${year}`}
+          </h3>
         </section>
       </Link>
     </div>

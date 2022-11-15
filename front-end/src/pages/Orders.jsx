@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import OrderCard from '../components/OrderCard';
+import Footer from '../components/Footer';
+import styles from './CSS/Products.module.css';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -35,8 +37,8 @@ export default function Orders() {
             price={ order.totalPrice }
             date={ order.saleDate }
           />
-        )) : 'No orders yet' }
-
+        )) : <h3 className={ styles.title }>Não perca tempo, faça seu pedido!</h3> }
+      <Footer />
     </div>
   );
 }
