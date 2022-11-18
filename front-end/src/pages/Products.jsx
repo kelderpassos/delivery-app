@@ -5,7 +5,6 @@ import Slider from 'react-slick';
 import NavBar from '../components/NavBar';
 import ProductCards from '../components/ProductCards';
 import { CartContext } from '../context/CartContext';
-import Footer from '../components/Footer';
 import styles from './CSS/Products.module.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -66,7 +65,6 @@ export default function Products() {
           {`Finalizar compra: ${cart.toFixed(2).replace('.', ',')}`}
         </button>
       </main>
-      <Footer />
     </div>
   );
 }

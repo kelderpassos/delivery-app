@@ -44,7 +44,7 @@ export default function SellerOrders() {
               />
             ))
           ) : (
-            <h2>Não há pedidos feitos</h2>
+            <h1 className={ styles.title }>Não há pedidos feitos</h1>
           )}
       </section>
     </div>

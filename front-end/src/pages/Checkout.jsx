@@ -107,7 +107,7 @@ export default function Checkout() {
       <div className={ styles.container }>
         <form className={ styles.detailsForm } onSubmit={ handleSubmit }>
           <label htmlFor="sellers">
-            Seller
+            Vendedor
             <select
               name="sellerId"
               id="sellers"

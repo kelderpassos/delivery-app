@@ -44,7 +44,7 @@ export default function Admin() {
       <h4 className={ styles.title }>Cadastrar novos usuários</h4>
       <form className={ styles.adminForm } onSubmit={ handleSubmit }>
         <label htmlFor="name">
-          Name
+          Nome
           <input
             name="name"
             type="text"
@@ -62,7 +62,7 @@ export default function Admin() {
           />
         </label>
         <label htmlFor="password">
-          Password
+          Senha
           <input
             name="password"
             type="password"
@@ -89,11 +89,11 @@ export default function Admin() {
           disabled={ !validateFields() }
           data-testid="admin_manage__button-register"
         >
-          Register
+          Cadastrar
         </button>
         {invalidRegistered && (
           <p data-testid="admin_manage__element-invalid-register">
-            Already registered
+            Usuário já cadastrado
           </p>
         )}
       </form>

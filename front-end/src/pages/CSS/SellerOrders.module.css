@@ -5,6 +5,10 @@
   justify-content: center;
 }
 
+.title {
+  margin-top: 10rem;
+}
+
 .orderContainer div{
   margin: 1rem 0;
   /* border: solid red 1px; */

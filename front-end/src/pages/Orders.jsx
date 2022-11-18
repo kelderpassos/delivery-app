@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import OrderCard from '../components/OrderCard';
-import Footer from '../components/Footer';
 import styles from './CSS/Products.module.css';
 
 export default function Orders() {
@@ -13,7 +12,6 @@ export default function Orders() {
     await axios.get('http://localhost:3001/sales', { params: { id } })
       .then((result) => result.data)
       .then((data) => setOrders([...data]))
-      /* mudar para data quando back estiver pronto */
       .catch((err) => {
         setOrders([]);
         console.log(err);
@@ -37,8 +35,8 @@ export default function Orders() {
             price={ order.totalPrice }
             date={ order.saleDate }
           />
-        )) : <h3 className={ styles.title }>Não perca tempo, faça seu pedido!</h3> }
-      <Footer />
+        )) : <h1 className={ styles.title }>Não perca tempo, faça seu pedido!</h1> }
+
     </div>
   );
 }

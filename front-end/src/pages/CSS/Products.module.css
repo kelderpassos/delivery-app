@@ -11,7 +11,9 @@
   width: 60rem;
 }
 
-
+.title {
+  margin-top: 10rem;
+}
 
 .cartButton{
   border: none;
