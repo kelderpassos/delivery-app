@@ -92,9 +92,9 @@ export default function Admin() {
           Cadastrar
         </button>
         {invalidRegistered && (
-          <p data-testid="admin_manage__element-invalid-register">
+          <h3 data-testid="admin_manage__element-invalid-register">
             Usuário já cadastrado
-          </p>
+          </h3>
         )}
       </form>
     </div>
